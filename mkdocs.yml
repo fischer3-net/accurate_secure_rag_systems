@@ -1,0 +1,108 @@
+site_name: Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform
+site_description: 4-Week Intensive Hands-on Workshop for Security Professionals, Cloud Architects, and Python Developers
+site_author: Course Instructors
+site_url: https://fischer3-net.github.io/accurate_secure_rag_systems/
+
+repo_name: fischer3-net/accurate_secure_rag_systems
+repo_url: https://github.com/fischer3-net/accurate_secure_rag_systems
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Syllabus: syllabus.md
+  - Week 1 – Precision RAG & Domain Chunking:
+    - Overview: week-01/index.md
+    - Theory: week-01/theory.md
+    - Lab 1.1 – Document-aware Chunking & Metadata: week-01/lab-1.1.md
+    - Lab 1.2 – Hybrid Retrieval + Re-ranking: week-01/lab-1.2.md
+  - Week 2 – Storage Architecture on GCP:
+    - Overview: week-02/index.md
+    - Theory: week-02/theory.md
+    - Lab 2.1 – AlloyDB pgvector vs Vertex AI Vector Search: week-02/lab-2.1.md
+    - Lab 2.2 – Graph-Augmented RAG: week-02/lab-2.2.md
+  - Week 3 – Skill Architecture & Prompt Hygiene:
+    - Overview: week-03/index.md
+    - Theory: week-03/theory.md
+    - Lab 3.1 – Modular Skills with Vertex AI Function Calling: week-03/lab-3.1.md
+    - Lab 3.2 – Dynamic Skill Router: week-03/lab-3.2.md
+  - Week 4 – Automated Evaluation & CI/CD:
+    - Overview: week-04/index.md
+    - Theory: week-04/theory.md
+    - Lab 4.1 – Golden Dataset & Ragas: week-04/lab-4.1.md
+    - Lab 4.2 – Cloud Build Quality Gates: week-04/lab-4.2.md
+  - Capstone Project:
+    - Overview: capstone/index.md
+    - Requirements: capstone/requirements.md
+    - Starter Template: capstone/starter.md
+  - Resources:
+    - Recommended Tooling: resources/tooling.md
+    - GCP Setup Scripts: resources/gcp-setup.md
+    - Further Reading: resources/reading.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/fischer3-net/accurate_secure_rag_systems
+  version:
+    provider: mike
+
+copyright: Copyright &copy; 2026 – Advanced RAG on GCP Workshop
