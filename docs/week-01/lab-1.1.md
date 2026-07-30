@@ -75,7 +75,7 @@ labs/01-chunking/
     └── test_chunking.py      # Optional but recommended
 ```
 
-If the directories do not yet exist in your clone, create them. Sample policy documents will be provided (or you may use your organisation’s anonymised excerpts).
+A complete reference implementation is already present under `labs/01-chunking/src/`, together with a guided notebook and unit tests. Sample policy documents live in `data/`. You may replace the samples with your organisation’s anonymised excerpts; the pipeline will adapt as long as the Markdown heading structure is preserved.
 
 ---
 
@@ -88,9 +88,9 @@ Place at least two Markdown documents in `labs/01-chunking/data/`:
 - One SDLC handbook (or relevant excerpt) containing hierarchical sections and gates.
 - One technical security baseline containing numbered controls related to data flows, trust boundaries, external entities, and data stores.
 
-### 2. Implement document-aware splitting
+### 2. Document-aware splitting (already implemented in `src/chunking.py`)
 
-Use `MarkdownHeaderTextSplitter` (or an equivalent custom splitter) so that chunks respect heading boundaries.
+The starter uses `MarkdownHeaderTextSplitter` so that chunks respect heading boundaries. Study the implementation, then experiment with your own variations.
 
 ```python
 from langchain_text_splitters import MarkdownHeaderTextSplitter
