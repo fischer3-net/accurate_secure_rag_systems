@@ -1,26 +1,30 @@
-# Lab 01 – Chunking & Metadata Enrichment
+# Lab 01 – Chunking, Metadata & Hybrid Retrieval
 
-This directory contains the **starter implementation** and student workspace for **Lab 1.1**.
+This directory contains the **starter implementation** for **Lab 1.1** and **Lab 1.2**.
 
 ## Layout
 
 ```
 01-chunking/
-├── README.md                 # This file
-├── data/                     # Source policy documents
+├── README.md
+├── data/
 │   ├── sdlc_handbook.md
-│   └── security_baseline.md
-├── src/                      # Production-style reference implementation
+│   ├── security_baseline.md
+│   └── evaluation_queries.json      # Lab 1.2 ground-truth queries
+├── src/
 │   ├── __init__.py
-│   ├── chunking.py           # Document-aware split + Parent-Child
-│   ├── metadata.py           # Pydantic schema + deterministic enrichment
-│   └── ingest.py             # BigQuery + JSONL writers
+│   ├── chunking.py                  # Lab 1.1 – document-aware split + Parent-Child
+│   ├── metadata.py                  # Lab 1.1 – Pydantic schema + enrichment
+│   ├── ingest.py                    # Lab 1.1 – BigQuery + JSONL
+│   └── retrieval.py                 # Lab 1.2 – BM25, dense, RRF, re-ranker, eval
 ├── notebooks/
-│   └── lab-1.1-chunking.ipynb
+│   ├── lab-1.1-chunking.ipynb
+│   └── lab-1.2-hybrid-rerank.ipynb
 ├── tests/
-│   └── test_chunking.py
+│   ├── test_chunking.py
+│   └── test_retrieval.py
 ├── requirements.txt
-└── output/                   # Generated corpus (git-ignored)
+└── output/                          # Generated corpus (git-ignored)
     └── rag_chunks.jsonl
 ```
 
@@ -28,59 +32,55 @@ This directory contains the **starter implementation** and student workspace for
 
 ```bash
 # From the labs/01-chunking directory
-pip install -r requirements.txt   # or the packages listed in the lab guide
+pip install -r requirements.txt
 
-# Run the unit tests (offline, no GCP required)
+# Run all unit tests (offline, no GCP required)
 pytest tests/ -v
 
-# Explore interactively
+# Lab 1.1 notebook
 jupyter notebook notebooks/lab-1.1-chunking.ipynb
+
+# Lab 1.2 notebook
+jupyter notebook notebooks/lab-1.2-hybrid-rerank.ipynb
 ```
 
-### One-liner to build the corpus
+### Build corpus + run hybrid retrieval in a few lines
 
 ```python
 from src.chunking import process_directory
 from src.ingest import write_jsonl
+from src.retrieval import HybridRetriever, HashingEmbedder, load_eval_queries, evaluate_retriever
 
 corpus = process_directory("data")
 write_jsonl(corpus, "output/rag_chunks.jsonl")
-print(f"Wrote {len(corpus)} enriched chunks")
+
+retriever = HybridRetriever.from_jsonl("output/rag_chunks.jsonl", embedder=HashingEmbedder())
+result = retriever.retrieve("Can an external entity write directly to a data store?", top_k=3)
+for h in result.final_hits:
+    print(h.rank, h.control_id, h.score)
+
+queries = load_eval_queries("data/evaluation_queries.json")
+metrics = evaluate_retriever(retriever, queries, k=3)
+print("Hit-rate@3:", metrics["mean_hit_rate_at_3"])
 ```
 
-## What the starter already provides
+## What is provided
 
-| Component | Status |
-|-----------|--------|
-| MarkdownHeaderTextSplitter (heading-aware) | ✅ |
-| Parent-Child (section strategy) | ✅ |
-| Full compliance metadata schema (Pydantic) | ✅ |
-| Deterministic enrichment rules (control_id, asset_type, risk_tier, sdlc_phase) | ✅ |
-| JSONL writer + round-trip loader | ✅ |
-| BigQuery writer (optional, needs credentials) | ✅ |
-| Validation helpers | ✅ |
-| Unit tests | ✅ |
-| Guided notebook | ✅ |
-
-Students are expected to:
-
-1. Run and understand the reference pipeline.
-2. Experiment with alternative parent strategies or enrichment rules.
-3. Optionally extend the pipeline to PDF sources or additional metadata fields.
-4. Persist the corpus (JSONL and/or BigQuery) for use in Lab 1.2.
+| Component | Lab | Status |
+|-----------|-----|--------|
+| Document-aware Markdown splitting | 1.1 | ✅ |
+| Parent-Child chunk construction | 1.1 | ✅ |
+| Compliance metadata schema + deterministic enrichment | 1.1 | ✅ |
+| JSONL + BigQuery writers | 1.1 | ✅ |
+| BM25 sparse index (pure Python) | 1.2 | ✅ |
+| Dense index (HashingEmbedder offline / VertexEmbedder) | 1.2 | ✅ |
+| Reciprocal Rank Fusion | 1.2 | ✅ |
+| Lightweight domain re-ranker | 1.2 | ✅ |
+| Metadata pre-filters | 1.2 | ✅ |
+| Evaluation harness (precision@k + hit-rate@k) | 1.2 | ✅ |
+| Guided notebooks + unit tests | both | ✅ |
 
 ## Full instructions
 
-See the lab guide:
-
-**[Lab 1.1 – Document-Aware Chunking & Metadata Enrichment](../../docs/week-01/lab-1.1.md)**
-
-## Sample Document Guidance
-
-If your organisation cannot share real handbooks, the provided synthetic documents already contain:
-
-- Hierarchical headings (H1–H3)
-- Numbered security controls related to data flows, trust boundaries, external entities, and data stores
-- Explicit Risk Tier and SDLC Phase annotations
-
-You may replace them with anonymised excerpts from your own environment; the pipeline will adapt as long as the Markdown structure is preserved.
+- [Lab 1.1 – Document-Aware Chunking & Metadata](../../docs/week-01/lab-1.1.md)
+- [Lab 1.2 – Hybrid Retrieval + Re-ranking](../../docs/week-01/lab-1.2.md)

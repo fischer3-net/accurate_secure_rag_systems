@@ -1,0 +1,86 @@
+[
+  {
+    "query_id": "Q01",
+    "query": "Does the design require authentication and authorization for external entities that interact with internal data stores?",
+    "relevant_control_ids": ["SEC-DFD-014"],
+    "relevant_asset_types": ["external_entity"],
+    "notes": "Direct match to External Entity Access control"
+  },
+  {
+    "query_id": "Q02",
+    "query": "What controls apply when a data flow crosses a trust boundary?",
+    "relevant_control_ids": ["SEC-DFD-001", "SEC-DFD-031"],
+    "relevant_asset_types": ["trust_boundary", "data_flow"],
+    "notes": "Trust boundary definition + integrity protection"
+  },
+  {
+    "query_id": "Q03",
+    "query": "Are unprotected data flows across trust boundaries allowed?",
+    "relevant_control_ids": ["SEC-DFD-001"],
+    "relevant_asset_types": ["trust_boundary"],
+    "notes": "From SDLC handbook Trust Boundary Analysis and baseline SEC-DFD-001"
+  },
+  {
+    "query_id": "Q04",
+    "query": "How must data stores be classified and what does classification drive?",
+    "relevant_control_ids": ["SEC-DFD-022"],
+    "relevant_asset_types": ["data_store"],
+    "notes": "Data Store Classification control"
+  },
+  {
+    "query_id": "Q05",
+    "query": "Can an external entity write directly to an internal data store?",
+    "relevant_control_ids": ["SEC-DFD-014"],
+    "relevant_asset_types": ["external_entity", "data_store"],
+    "notes": "Explicit prohibition in SEC-DFD-014 and handbook 3.1.2"
+  },
+  {
+    "query_id": "Q06",
+    "query": "What integrity protections are required for data flows that cross trust boundaries?",
+    "relevant_control_ids": ["SEC-DFD-031"],
+    "relevant_asset_types": ["data_flow", "trust_boundary"],
+    "notes": "SEC-DFD-031 – Data Flow Integrity"
+  },
+  {
+    "query_id": "Q07",
+    "query": "During which SDLC phase must trust boundaries be identified and documented?",
+    "relevant_control_ids": ["SEC-DFD-001"],
+    "relevant_asset_types": ["trust_boundary"],
+    "notes": "Design phase emphasis + SEC-DFD-001"
+  },
+  {
+    "query_id": "Q08",
+    "query": "What isolation requirements apply to processes handling data from different trust levels?",
+    "relevant_control_ids": ["SEC-DFD-045"],
+    "relevant_asset_types": ["process"],
+    "notes": "Process Isolation control"
+  },
+  {
+    "query_id": "Q09",
+    "query": "Which Architecture Review Gate checks must be completed before implementation begins?",
+    "relevant_control_ids": [],
+    "relevant_asset_types": ["trust_boundary", "external_entity", "data_store"],
+    "notes": "SDLC handbook 3.1 – multi-aspect gate, no single control_id"
+  },
+  {
+    "query_id": "Q10",
+    "query": "SEC-DFD-014 external entity write access",
+    "relevant_control_ids": ["SEC-DFD-014"],
+    "relevant_asset_types": ["external_entity"],
+    "notes": "Keyword-heavy query – tests sparse retrieval strength"
+  },
+  {
+    "query_id": "Q11",
+    "query": "Is direct write access from external entities to internal data stores forbidden without an intermediate process?",
+    "relevant_control_ids": ["SEC-DFD-014"],
+    "relevant_asset_types": ["external_entity"],
+    "notes": "Near-verbatim language from both handbook and baseline"
+  },
+  {
+    "query_id": "Q12",
+    "query": "What risk tier is assigned to trust boundary definition controls?",
+    "relevant_control_ids": ["SEC-DFD-001"],
+    "relevant_asset_types": ["trust_boundary"],
+    "notes": "Critical risk tier for SEC-DFD-001"
+  }
+]

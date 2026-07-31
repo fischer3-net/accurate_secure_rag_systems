@@ -1,4 +1,4 @@
-# Lab 1.1 core dependencies
+# Lab 1.x core dependencies
 langchain-text-splitters>=0.2.0
 langchain-core>=0.2.0
 pydantic>=2.0
