@@ -32,6 +32,35 @@ This is a classic **multi-document alignment** problem. The system must simultan
 4. **Hallucination under sparse retrieval**  
    When the top-k retrieved chunks do not contain the exact control language, the LLM tends to invent plausible but non-grounded compliance statements — unacceptable in a security context.
 
+!!! note "Mathematical Definition of Top-k"
+    **Top-k** retrieval selects the *k* most relevant documents from a corpus *D* based on a similarity score function *s*.
+    
+    Given:
+    
+    - A query vector **q** ∈ ℝ^d^
+    - A document corpus **D** = {d~1~, d~2~, ..., d~n~} where each d~i~ ∈ ℝ^d^
+    - A similarity function *s*(**q**, **d**) → ℝ (e.g., cosine similarity, dot product)
+    
+    The top-k retrieval returns:
+    
+    $$
+    \text{top-k}(\mathbf{q}, D, k) = \underset{S \subseteq D, |S|=k}{\arg\max} \sum_{\mathbf{d} \in S} s(\mathbf{q}, \mathbf{d})
+    $$
+    
+    Or equivalently, sort documents by score and select the first k:
+    
+    $$
+    \text{top-k}(\mathbf{q}, D, k) = \{\mathbf{d}_{\pi(1)}, \mathbf{d}_{\pi(2)}, \ldots, \mathbf{d}_{\pi(k)}\}
+    $$
+    
+    where π is a permutation such that $s(\mathbf{q}, \mathbf{d}_{\pi(i)}) \geq s(\mathbf{q}, \mathbf{d}_{\pi(i+1)})$ for all $i \in [1, k-1]$.
+    
+    **Common similarity functions:**
+    
+    - **Cosine similarity:** $s(\mathbf{q}, \mathbf{d}) = \frac{\mathbf{q} \cdot \mathbf{d}}{\|\mathbf{q}\| \|\mathbf{d}\|}$
+    - **Dot product:** $s(\mathbf{q}, \mathbf{d}) = \mathbf{q} \cdot \mathbf{d}$
+    - **Euclidean distance** (inverted): $s(\mathbf{q}, \mathbf{d}) = -\|\mathbf{q} - \mathbf{d}\|_2$
+
 **Goal of this week:** Build a retrieval foundation that preserves hierarchy, enriches domain metadata, and surfaces the right policy context for any given DFD element or flow.
 
 ---

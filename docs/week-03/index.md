@@ -6,17 +6,17 @@
 
 - Distinguish System Prompts, Retrieval Augmentation, and Agentic Tools/Skills.
 - Define clear JSON schemas and docstrings for Vertex AI Function Calling.
-- Avoid the “tool overload” problem through dynamic skill routing / orchestration.
+- Avoid the “tool overload” problem through dynamic skill routing.
 - Apply least-privilege and prompt-injection defenses for skills that process untrusted DFDs.
 
 ## Agenda
 
 1. Theory – Anatomy of a skill, bloat mitigation, security
-2. Lab 3.1 – Refactor monolithic mega-prompt into modular skills + Pydantic validation
-3. Lab 3.2 – Dynamic Skill Router based on input classification
+2. Lab 3.1 – Modular skills + Pydantic + tool registry
+3. Lab 3.2 – Dynamic Skill Router
 
 ## Navigation
 
 - [Theory](theory.md)
-- [Lab 3.1](lab-3.1.md)
-- [Lab 3.2](lab-3.2.md)
+- [Lab 3.1 – Modular Skills](lab-3.1.md)
+- [Lab 3.2 – Dynamic Skill Router](lab-3.2.md)

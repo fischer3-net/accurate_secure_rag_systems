@@ -55,7 +55,6 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.details
@@ -65,6 +64,8 @@ markdown_extensions:
   - md_in_html
   - toc:
       permalink: true
+  - pymdownx.arithmatex:
+      generic: true
 
 nav:
   - Home: index.md
@@ -98,6 +99,14 @@ nav:
     - GCP Setup Scripts: resources/gcp-setup.md
     - Further Reading: resources/reading.md
 
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
+
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -105,4 +114,4 @@ extra:
   version:
     provider: mike
 
-copyright: Copyright &copy; 2026 – Advanced RAG on GCP Workshop
+copyright: Copyright Robert Fischer &copy; 2026 – Advanced RAG on GCP Workshop
