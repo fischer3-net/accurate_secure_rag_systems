@@ -1,0 +1,33 @@
+{
+  "name": "Internal Batch Job \u2013 Clean DFD",
+  "description": "No external entities; internal process to internal store only.",
+  "nodes": [
+    {
+      "id": "proc_batch",
+      "type": "Process",
+      "name": "Nightly Batch",
+      "properties": {
+        "trust_level": "internal"
+      }
+    },
+    {
+      "id": "ds_ops",
+      "type": "DataStore",
+      "name": "Ops Metrics",
+      "properties": {
+        "classification": "internal",
+        "trust_level": "internal"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "proc_batch",
+      "target": "ds_ops",
+      "type": "FLOWS_TO",
+      "properties": {
+        "protocol": "SQL"
+      }
+    }
+  ]
+}

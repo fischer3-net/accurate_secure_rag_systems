@@ -19,6 +19,10 @@ build/
 # Jupyter
 .ipynb_checkpoints/
 
+# Lab generated artefacts
+labs/**/output/
+*.jsonl
+
 # IDE / OS
 .idea/
 .vscode/

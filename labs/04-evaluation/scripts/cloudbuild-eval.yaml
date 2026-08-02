@@ -1,0 +1,22 @@
+# Optional GCP-native equivalent of .github/workflows/eval.yml
+# Usage: gcloud builds submit --config labs/04-evaluation/scripts/cloudbuild-eval.yaml
+steps:
+  - name: python:3.11-slim
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        pip install --quiet pydantic pytest langchain-text-splitters langchain-core || true
+        cd labs/04-evaluation
+        pytest tests/ -q
+        python -c "
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path('.').resolve()))
+        from src.eval_runner import main
+        raise SystemExit(main(['--output', 'output/metrics.json']))
+        "
+artifacts:
+  objects:
+    location: 'gs://${PROJECT_ID}-rag-eval/metrics'
+    paths: ['labs/04-evaluation/output/metrics.json']

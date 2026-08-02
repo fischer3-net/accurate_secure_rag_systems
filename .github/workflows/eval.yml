@@ -1,0 +1,66 @@
+# Lab 4.2 – Evaluation quality gate
+# Fails the job when deterministic metrics fall below thresholds.
+name: evaluate
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "labs/**"
+      - ".github/workflows/eval.yml"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "labs/**"
+      - ".github/workflows/eval.yml"
+  workflow_dispatch:
+
+jobs:
+  evaluation-gate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: labs/04-evaluation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pydantic pytest
+          # Week 1–3 optional deps (best-effort; suite is offline-first)
+          pip install langchain-text-splitters langchain-core || true
+
+      - name: Unit tests (dataset + gate)
+        run: pytest tests/ -q --tb=line
+
+      - name: Run evaluation suite
+        run: |
+          mkdir -p output
+          python -c "
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('.').resolve()))
+          from src.eval_runner import main
+          raise SystemExit(main([
+              '--golden', 'data/golden_dataset.jsonl',
+              '--fixtures', 'data/fixtures',
+              '--corpus', 'data/rag_chunks.jsonl',
+              '--output', 'output/metrics.json',
+              '--min-overall', '0.50',
+              '--min-hit-rate', '0.40',
+          ]))
+          "
+
+      - name: Upload metrics artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-metrics
+          path: labs/04-evaluation/output/metrics.json
+          if-no-files-found: warn

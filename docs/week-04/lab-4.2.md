@@ -1,20 +1,65 @@
-# Lab 4.2 – Cloud Build Quality Gates with Ragas
+# Lab 4.2 – CI Quality Gate for Evaluation Metrics
 
-**Objective:** Create a Cloud Build (or GitHub Actions) pipeline that, on every push, runs the Ragas evaluation suite and fails the build if Faithfulness (or other chosen metrics) falls below the defined threshold (e.g., 92%).
+**Objective:** Wire the golden dataset and deterministic evaluation suite into a GitHub Actions (or Cloud Build) pipeline that fails the job when metrics drop below configured thresholds.
 
-## Deliverables
+---
 
-- `cloudbuild.yaml` (or GitHub Actions workflow) that:
-  1. Installs dependencies
-  2. Runs `pytest` + Ragas against the golden dataset
-  3. Publishes metric reports (optional: to BigQuery or Cloud Monitoring)
-  4. Fails on quality-gate violation
-- Documented threshold configuration that can be adjusted per environment.
+## Learning Goals
+
+- Express evaluation thresholds in a small config file.
+- Run the evaluation suite headlessly in CI.
+- Publish a machine-readable metrics report as a build artifact.
+- Optionally sketch the equivalent Cloud Build step for GCP-native teams.
+
+---
 
 ## Starter Location
 
 ```
 labs/04-evaluation/
-cloudbuild.yaml
-tests/test_ragas_metrics.py
+├── src/
+│   ├── eval_runner.py         # headless evaluation entrypoint
+│   └── thresholds.yaml        # min hit-rate, required fields, …
+├── tests/
+│   └── test_eval_gate.py      # pytest that enforces thresholds
+└── (repo root)
+    .github/workflows/eval.yml # quality-gate workflow
 ```
+
+---
+
+## Pipeline behaviour
+
+```
+on: push / pull_request
+jobs:
+  evaluate:
+    steps:
+      - checkout
+      - setup Python
+      - install deps
+      - pytest labs/04-evaluation/tests -q
+      - python -m src.eval_runner --output metrics.json
+      - fail if thresholds missed (pytest gate already does this)
+      - upload metrics.json artifact
+```
+
+The existing MkDocs deploy workflow remains separate; evaluation should block merge on `main` when gates fail.
+
+---
+
+## Success Criteria
+
+| Criterion | Target |
+|-----------|--------|
+| `eval_runner` produces metrics JSON offline | Yes |
+| pytest gate fails when a threshold is deliberately lowered | Yes |
+| Workflow YAML present and documented | Yes |
+| Cloud Build sketch (optional) documented | Yes |
+
+---
+
+## Submission
+
+- Green (or intentionally failing demo) evaluation run in the notebook / local pytest.
+- Short note on the thresholds you chose and why.

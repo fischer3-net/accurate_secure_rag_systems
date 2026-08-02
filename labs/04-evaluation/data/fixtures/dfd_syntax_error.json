@@ -1,0 +1,130 @@
+{
+  "name": "Broken DFD \u2013 syntax errors",
+  "description": "Illustrative DFD with a trust-boundary crossing from an external partner into a PII store. Used by Lab 2.2 to demonstrate structural validation.",
+  "nodes": [
+    {
+      "id": "ee_partner",
+      "type": "ExternalEntity",
+      "name": "Partner API",
+      "properties": {
+        "description": "Third-party order feed"
+      }
+    },
+    {
+      "id": "proc_ingest",
+      "type": "Process",
+      "name": "Order Ingest Service",
+      "properties": {
+        "trust_level": "internal"
+      }
+    },
+    {
+      "id": "proc_enrich",
+      "type": "Process",
+      "name": "Customer Enrichment",
+      "properties": {
+        "trust_level": "internal"
+      }
+    },
+    {
+      "id": "ds_orders",
+      "type": "DataStore",
+      "name": "Orders DB",
+      "properties": {
+        "classification": "internal",
+        "trust_level": "internal"
+      }
+    },
+    {
+      "id": "ds_pii",
+      "type": "DataStore",
+      "name": "Customer PII Store",
+      "properties": {
+        "classification": "confidential",
+        "trust_level": "restricted"
+      }
+    },
+    {
+      "id": "tb_dmz",
+      "type": "TrustBoundary",
+      "name": "DMZ / Internal Boundary",
+      "properties": {}
+    },
+    {
+      "id": "bad_node",
+      "type": "MagicBox",
+      "name": "",
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "source": "ee_partner",
+      "target": "proc_ingest",
+      "type": "FLOWS_TO",
+      "properties": {
+        "protocol": "HTTPS",
+        "crosses_boundary": true
+      }
+    },
+    {
+      "source": "ee_partner",
+      "target": "tb_dmz",
+      "type": "CROSSES",
+      "properties": {
+        "note": "Partner traffic enters DMZ"
+      }
+    },
+    {
+      "source": "proc_ingest",
+      "target": "ds_orders",
+      "type": "FLOWS_TO",
+      "properties": {
+        "protocol": "SQL"
+      }
+    },
+    {
+      "source": "proc_ingest",
+      "target": "proc_enrich",
+      "type": "FLOWS_TO",
+      "properties": {
+        "protocol": "gRPC"
+      }
+    },
+    {
+      "source": "proc_enrich",
+      "target": "ds_pii",
+      "type": "FLOWS_TO",
+      "properties": {
+        "protocol": "SQL",
+        "note": "Enrichment writes identity attributes into PII store"
+      }
+    },
+    {
+      "source": "ee_partner",
+      "target": "SEC-DFD-014",
+      "type": "GOVERNED_BY",
+      "properties": {
+        "note": "External entity access control"
+      }
+    },
+    {
+      "source": "tb_dmz",
+      "target": "SEC-DFD-001",
+      "type": "GOVERNED_BY",
+      "properties": {}
+    },
+    {
+      "source": "ds_pii",
+      "target": "SEC-DFD-022",
+      "type": "GOVERNED_BY",
+      "properties": {}
+    },
+    {
+      "source": "no_such_node",
+      "target": "ds_pii",
+      "type": "FLOWS_TO",
+      "properties": {}
+    }
+  ]
+}

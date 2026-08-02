@@ -1,0 +1,7 @@
+# Deterministic quality gates for Lab 4.2 / Capstone CI
+# Adjust carefully – lowering thresholds weakens the safety net.
+
+min_mean_overall: 0.55
+min_mean_control_hit_rate: 0.50
+min_golden_rows: 20
+require_schema_validation: true
