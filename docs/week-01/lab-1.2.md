@@ -1,5 +1,10 @@
 # Lab 1.2 – Hybrid Retrieval + Custom Re-ranker Pipeline
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fischer3-net/accurate_secure_rag_systems/blob/main/labs/01-chunking/notebooks/lab-1.2-hybrid-rerank.ipynb)
+[![Open in GitHub](https://img.shields.io/badge/GitHub-notebook-181717?logo=github)](https://github.com/fischer3-net/accurate_secure_rag_systems/blob/main/labs/01-chunking/notebooks/lab-1.2-hybrid-rerank.ipynb)
+
+*Run in the browser with [Google Colab](../resources/colab.md) or locally via [Docker](../resources/docker.md) / [VS Code](../resources/vscode.md).*
+
 **Objective:** Build a hybrid retrieval stack (dense + sparse) with Reciprocal Rank Fusion (RRF) and a lightweight re-ranking stage that measurably improves top-3 precision for DFD security policy checks.
 
 This lab consumes the enriched corpus produced by Lab 1.1 and turns it into a production-ready retrieval component that later modules and the Capstone will call.

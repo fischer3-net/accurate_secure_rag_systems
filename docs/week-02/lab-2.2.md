@@ -1,5 +1,10 @@
 # Lab 2.2 – Graph-Augmented RAG for DFD Connectivity
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fischer3-net/accurate_secure_rag_systems/blob/main/labs/02-storage/notebooks/lab-2.2-graph-rag.ipynb)
+[![Open in GitHub](https://img.shields.io/badge/GitHub-notebook-181717?logo=github)](https://github.com/fischer3-net/accurate_secure_rag_systems/blob/main/labs/02-storage/notebooks/lab-2.2-graph-rag.ipynb)
+
+*Run in the browser with [Google Colab](../resources/colab.md) or locally via [Docker](../resources/docker.md) / [VS Code](../resources/vscode.md).*
+
 **Objective:** Model a Data Flow Diagram as a graph, link its elements to the policy chunks from Week 1, and answer structural compliance questions that pure vector search cannot.
 
 ---

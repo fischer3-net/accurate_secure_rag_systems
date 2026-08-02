@@ -1,0 +1,50 @@
+{
+  "name": "Advanced RAG Course",
+  "build": {
+    "context": "..",
+    "dockerfile": "../docker/Dockerfile"
+  },
+  "remoteUser": "fischer3",
+  "workspaceFolder": "/home/fischer3/course",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/fischer3/course,type=bind,consistency=cached",
+  "containerEnv": {
+    "COURSE_HOME": "/home/fischer3/course",
+    "COURSE_USER": "fischer3",
+    "HOME": "/home/fischer3",
+    "JUPYTER_CONFIG_DIR": "/home/fischer3/.jupyter",
+    "JUPYTER_DATA_DIR": "/home/fischer3/.local/share/jupyter",
+    "JUPYTER_RUNTIME_DIR": "/home/fischer3/.local/share/jupyter/runtime"
+  },
+  "forwardPorts": [
+    8888
+  ],
+  "portsAttributes": {
+    "8888": {
+      "label": "JupyterLab",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-python.pytest"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.testing.pytestEnabled": true,
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "postCreateCommand": "python -m ipykernel install --user --name=rag-course --display-name='RAG Course (Python 3.11)' || true",
+  "postStartCommand": "mkdir -p /home/fischer3/.jupyter /home/fischer3/.local/share/jupyter/runtime && true",
+  "overrideCommand": true,
+  "shutdownAction": "stopContainer",
+  "entrypoint": "/bin/bash"
+}

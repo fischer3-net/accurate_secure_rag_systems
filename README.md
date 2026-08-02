@@ -52,7 +52,7 @@ docker compose up --build
 # open http://localhost:8888
 ```
 
-See [docs/resources/docker.md](docs/resources/docker.md) for tokens, GCP credentials, and troubleshooting.
+See [docs/resources/docker.md](docs/resources/docker.md) and [docs/resources/vscode.md](docs/resources/vscode.md) for VS Code. for tokens, GCP credentials, and troubleshooting.
 
 ## Moodle Integration
 

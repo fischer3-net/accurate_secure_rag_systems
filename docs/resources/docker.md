@@ -27,14 +27,26 @@ Stop the environment with `Ctrl+C` in the terminal, or:
 docker compose down
 ```
 
+### Upgrading from the earlier `jovyan` image
+
+If you previously started the stack under the old `jovyan` user, clear the old volumes once so ownership is recreated:
+
+```bash
+docker compose down -v
+docker compose up --build
+```
+
 ## What is mounted
 
 | Host path | Container path | Notes |
 |-----------|----------------|-------|
-| Repository root | `/home/jovyan/course` | Live bind-mount – saves persist on your machine |
-| (Docker volume) | `/home/jovyan/.jupyter` | Jupyter settings / checkpoints |
+| Repository root | `/home/fischer3/course` | Live bind-mount – saves persist on your machine |
+| (Docker volume) | `/home/fischer3/.jupyter` | Jupyter config (ownership fixed at start) |
+| (Docker volume) | `/home/fischer3/.local` | Jupyter data / kernels |
 
 Edits to notebooks and lab code on the host appear immediately inside the container, and vice versa.
+
+The container user is **`fischer3`** (uid 1000). The entrypoint runs briefly as root to `chown` the Jupyter volumes (which Docker creates as root), then drops privileges with `gosu`.
 
 ## Lab layout inside Jupyter
 
@@ -75,13 +87,7 @@ Then open `http://localhost:8888/?token=choose-a-secret`.
 
 ## Optional: live GCP credentials
 
-Notebooks are offline-first. To exercise Vertex AI / BigQuery paths:
-
-```bash
-# after gcloud auth application-default login on the host
-```
-
-Uncomment the gcloud config volume in `docker-compose.yml`, set `GOOGLE_CLOUD_PROJECT`, and restart.
+Notebooks are offline-first. To exercise Vertex AI / BigQuery paths, after `gcloud auth application-default login` on the host, uncomment the gcloud config volume in `docker-compose.yml`, set `GOOGLE_CLOUD_PROJECT`, and restart.
 
 ## Rebuild after dependency changes
 
@@ -96,14 +102,20 @@ docker compose up
 
 | Symptom | Fix |
 |---------|-----|
+| `PermissionError: ... /.jupyter/migrated` | `docker compose down -v` then `docker compose up --build` |
 | Port 8888 already in use | `JUPYTER_PORT=8890 docker compose up` |
-| Permission errors on Linux | Ensure your user can access the Docker socket; avoid running compose as root for the bind-mount |
-| Kernel not found | Kernel `RAG Course (Python 3.11)` is registered on start; pick it in the notebook UI if needed |
-| Import errors for `src` | Run notebooks from their lab folder paths as provided; do not move the `.ipynb` files without updating path logic |
+| Permission errors on Linux bind-mount | Ensure your host user can write the repo; container uid is 1000 |
+| Kernel not found | Kernel `RAG Course (Python 3.11)` is registered on start |
+| Import errors for `src` | Run notebooks from their lab folder paths as provided |
 
 ## Image details
 
 - Base: `python:3.11-slim-bookworm`
-- User: `jovyan` (uid 1000)
+- User: `fischer3` (uid 1000)
 - Pre-installed: pydantic, langchain text splitters, JupyterLab, pytest, optional Google Cloud SDKs
-- Entrypoint: `docker/entrypoint.sh`
+- Entrypoint: `docker/entrypoint.sh` (fixes volume ownership → `gosu fischer3` → JupyterLab)
+- Default command: `jupyter lab`
+
+## VS Code on the host
+
+To use Visual Studio Code against this container (Dev Containers or Attach), see [VS Code + Container Workflow](vscode.md).

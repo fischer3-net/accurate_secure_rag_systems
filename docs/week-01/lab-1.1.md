@@ -1,5 +1,10 @@
 # Lab 1.1 – Document-Aware Chunking & Metadata Enrichment
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fischer3-net/accurate_secure_rag_systems/blob/main/labs/01-chunking/notebooks/lab-1.1-chunking.ipynb)
+[![Open in GitHub](https://img.shields.io/badge/GitHub-notebook-181717?logo=github)](https://github.com/fischer3-net/accurate_secure_rag_systems/blob/main/labs/01-chunking/notebooks/lab-1.1-chunking.ipynb)
+
+*Run in the browser with [Google Colab](../resources/colab.md) or locally via [Docker](../resources/docker.md) / [VS Code](../resources/vscode.md).*
+
 **Objective:** Build a reproducible Python pipeline that ingests an SDLC handbook and a technical security baseline, applies document-aware chunking, attaches rich domain metadata, and prepares the resulting corpus for Vertex AI Vector Search and/or BigQuery.
 
 This lab produces the high-quality retrieval foundation used by every subsequent module and the Capstone.

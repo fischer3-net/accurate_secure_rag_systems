@@ -4,6 +4,9 @@
 #   open http://localhost:8888
 #
 # Course files are bind-mounted so notebook edits persist on the host.
+#
+# If you previously ran the jovyan-based image, remove old volumes once:
+#   docker compose down -v
 
 services:
   jupyter:
@@ -18,26 +21,28 @@ services:
       # Leave empty for local workshops (no login token).
       # Set a value for shared hosts, e.g. JUPYTER_TOKEN=my-secret
       JUPYTER_TOKEN: "${JUPYTER_TOKEN:-}"
-      COURSE_HOME: /home/jovyan/course
-      # Optional: point Vertex/BigQuery clients at ADC when students
-      # mount their gcloud config (see docker docs).
+      COURSE_HOME: /home/fischer3/course
+      COURSE_USER: fischer3
+      HOME: /home/fischer3
+      JUPYTER_CONFIG_DIR: /home/fischer3/.jupyter
+      JUPYTER_DATA_DIR: /home/fischer3/.local/share/jupyter
+      JUPYTER_RUNTIME_DIR: /home/fischer3/.local/share/jupyter/runtime
       GOOGLE_CLOUD_PROJECT: "${GOOGLE_CLOUD_PROJECT:-}"
     volumes:
       # Entire course tree – source of truth for labs + notebooks
-      - .:/home/jovyan/course
-      # Persist Jupyter runtime / notebook checkpoints outside the image
-      - jupyter-data:/home/jovyan/.jupyter
-      - jupyter-local:/home/jovyan/.local
-    working_dir: /home/jovyan/course
+      - .:/home/fischer3/course
+      # Persist Jupyter runtime / checkpoints (ownership fixed at container start)
+      - jupyter-data:/home/fischer3/.jupyter
+      - jupyter-local:/home/fischer3/.local
+    working_dir: /home/fischer3/course
     # Uncomment to pass host ADC into the container for live GCP labs:
-    # volumes:
-    #   - ${HOME}/.config/gcloud:/home/jovyan/.config/gcloud:ro
+    #   - ${HOME}/.config/gcloud:/home/fischer3/.config/gcloud:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8888/api"]
       interval: 30s
       timeout: 5s
       retries: 5
-      start_period: 20s
+      start_period: 25s
     restart: unless-stopped
 
 volumes:

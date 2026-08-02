@@ -1,5 +1,10 @@
 # Lab 4.1 – Ground-Truth Benchmark Dataset for DFD Evaluations
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fischer3-net/accurate_secure_rag_systems/blob/main/labs/04-evaluation/notebooks/lab-4.1-golden-dataset.ipynb)
+[![Open in GitHub](https://img.shields.io/badge/GitHub-notebook-181717?logo=github)](https://github.com/fischer3-net/accurate_secure_rag_systems/blob/main/labs/04-evaluation/notebooks/lab-4.1-golden-dataset.ipynb)
+
+*Run in the browser with [Google Colab](../resources/colab.md) or locally via [Docker](../resources/docker.md) / [VS Code](../resources/vscode.md).*
+
 **Objective:** Build a golden dataset of ≥20 DFD security evaluation examples that the automated suite (and the Capstone) can score against.
 
 ---

@@ -1,5 +1,10 @@
 # Lab 4.2 – CI Quality Gate for Evaluation Metrics
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fischer3-net/accurate_secure_rag_systems/blob/main/labs/04-evaluation/notebooks/lab-4.2-ci-gate.ipynb)
+[![Open in GitHub](https://img.shields.io/badge/GitHub-notebook-181717?logo=github)](https://github.com/fischer3-net/accurate_secure_rag_systems/blob/main/labs/04-evaluation/notebooks/lab-4.2-ci-gate.ipynb)
+
+*Run in the browser with [Google Colab](../resources/colab.md) or locally via [Docker](../resources/docker.md) / [VS Code](../resources/vscode.md).*
+
 **Objective:** Wire the golden dataset and deterministic evaluation suite into a GitHub Actions (or Cloud Build) pipeline that fails the job when metrics drop below configured thresholds.
 
 ---

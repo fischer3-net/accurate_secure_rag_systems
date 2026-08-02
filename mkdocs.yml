@@ -96,6 +96,8 @@ nav:
   - Resources:
     - Recommended Tooling: resources/tooling.md
     - Docker / JupyterLab Environment: resources/docker.md
+    - VS Code + Container Workflow: resources/vscode.md
+    - Google Colab: resources/colab.md
     - GCP Setup Scripts: resources/gcp-setup.md
     - Further Reading: resources/reading.md
 

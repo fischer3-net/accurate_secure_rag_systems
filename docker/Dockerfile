@@ -15,41 +15,42 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    # Jupyter
     JUPYTER_PORT=8888 \
-    # Course materials live here inside the container
-    COURSE_HOME=/home/jovyan/course \
-    HOME=/home/jovyan
+    COURSE_HOME=/home/fischer3/course \
+    HOME=/home/fischer3 \
+    JUPYTER_CONFIG_DIR=/home/fischer3/.jupyter \
+    JUPYTER_DATA_DIR=/home/fischer3/.local/share/jupyter \
+    JUPYTER_RUNTIME_DIR=/home/fischer3/.local/share/jupyter/runtime
 
-# System packages: build tools for any wheels, curl for healthchecks, git for student forks
+# System packages (gosu drops privileges after fixing volume ownership)
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         curl \
         git \
         tini \
+        gosu \
     && rm -rf /var/lib/apt/lists/*
 
-# Non-root user (matches common Jupyter images)
-RUN useradd -m -u 1000 -s /bin/bash jovyan \
-    && mkdir -p "${COURSE_HOME}" \
-    && chown -R jovyan:jovyan /home/jovyan
+# Course user (replaces the generic Jupyter "jovyan" convention)
+RUN useradd -m -u 1000 -s /bin/bash fischer3 \
+    && mkdir -p \
+        "${COURSE_HOME}" \
+        /home/fischer3/.jupyter \
+        /home/fischer3/.local/share/jupyter/runtime \
+    && chown -R fischer3:fischer3 /home/fischer3
 
 WORKDIR ${COURSE_HOME}
 
-# Install Python dependencies as root, then drop privileges
 COPY docker/requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip \
     && pip install -r /tmp/requirements.txt \
     && rm /tmp/requirements.txt
 
-# Lightweight entrypoint: start JupyterLab without a token for local workshops.
-# Override JUPYTER_TOKEN in compose or environment for shared / cloud hosts.
 COPY docker/entrypoint.sh /usr/local/bin/course-entrypoint.sh
 RUN chmod +x /usr/local/bin/course-entrypoint.sh
 
-USER jovyan
-
+# Remain root so entrypoint can chown named volumes, then gosu → fischer3
 EXPOSE 8888
 
-# tini reaps zombies from notebook kernels
 ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/course-entrypoint.sh"]
+CMD ["jupyter", "lab"]

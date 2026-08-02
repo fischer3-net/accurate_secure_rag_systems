@@ -25,3 +25,7 @@ docker compose up --build
 ```
 
 Details: [Docker / JupyterLab Environment](docker.md).
+
+- [VS Code + Container Workflow](vscode.md) — run labs from VS Code on the host while Python runs in Docker.
+
+- [Google Colab](colab.md) — open any lab notebook in the browser with one click.
