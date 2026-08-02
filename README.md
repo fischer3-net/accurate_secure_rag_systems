@@ -42,6 +42,18 @@ mkdocs serve
 mkdocs build
 ```
 
+
+## Student Jupyter Environment (Docker)
+
+Run all lab notebooks in a consistent Python 3.11 stack without local package installs:
+
+```bash
+docker compose up --build
+# open http://localhost:8888
+```
+
+See [docs/resources/docker.md](docs/resources/docker.md) for tokens, GCP credentials, and troubleshooting.
+
 ## Moodle Integration
 
 This repository is the single source of truth for all instructional content.  

@@ -95,6 +95,7 @@ nav:
     - Starter Template: capstone/starter.md
   - Resources:
     - Recommended Tooling: resources/tooling.md
+    - Docker / JupyterLab Environment: resources/docker.md
     - GCP Setup Scripts: resources/gcp-setup.md
     - Further Reading: resources/reading.md
 

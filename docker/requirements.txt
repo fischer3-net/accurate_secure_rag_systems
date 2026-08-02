@@ -1,0 +1,29 @@
+# Student environment for Jupyter lab notebooks (Weeks 1–4)
+# Offline-first: core stack works without GCP credentials.
+
+# Core
+pydantic>=2.0,<3
+python-dotenv>=1.0
+
+# Document splitting (Lab 1.1)
+langchain-text-splitters>=0.2.0
+langchain-core>=0.2.0
+
+# Notebooks
+jupyterlab>=4.0
+ipykernel>=6.0
+ipywidgets>=8.0
+notebook>=7.0
+
+# Testing (students can run pytest from a terminal in JupyterLab)
+pytest>=8.0
+
+# Optional GCP SDKs – installed so Capstone / live paths work when ADC is present
+# Notebooks remain offline-capable without credentials.
+google-cloud-bigquery>=3.20
+google-cloud-aiplatform>=1.50
+
+# Convenience for data inspection in notebooks
+pandas>=2.0
+numpy>=1.26
+pyyaml>=6.0

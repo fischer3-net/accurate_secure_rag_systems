@@ -1,0 +1,14 @@
+.git
+.github
+**/__pycache__
+**/.pytest_cache
+**/*.pyc
+**/.ipynb_checkpoints
+**/output/*
+!**/output/.gitkeep
+site
+.venv
+venv
+*.zip
+.env
+**/.DS_Store

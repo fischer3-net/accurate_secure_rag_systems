@@ -15,3 +15,13 @@
 - Prefer Vertex AI Workbench or Colab Enterprise for notebooks that need direct GCP authentication.
 - Use Application Default Credentials (ADC) everywhere possible.
 - Keep secrets in Secret Manager; never hard-code keys.
+
+## Student Jupyter Environment
+
+For a zero-install notebook experience, use the course Docker image:
+
+```bash
+docker compose up --build
+```
+
+Details: [Docker / JupyterLab Environment](docker.md).

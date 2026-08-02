@@ -1,0 +1,45 @@
+# Student Jupyter environment
+# --------------------------
+#   docker compose up --build
+#   open http://localhost:8888
+#
+# Course files are bind-mounted so notebook edits persist on the host.
+
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: accurate-secure-rag-systems:latest
+    container_name: rag-course-jupyter
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+    environment:
+      # Leave empty for local workshops (no login token).
+      # Set a value for shared hosts, e.g. JUPYTER_TOKEN=my-secret
+      JUPYTER_TOKEN: "${JUPYTER_TOKEN:-}"
+      COURSE_HOME: /home/jovyan/course
+      # Optional: point Vertex/BigQuery clients at ADC when students
+      # mount their gcloud config (see docker docs).
+      GOOGLE_CLOUD_PROJECT: "${GOOGLE_CLOUD_PROJECT:-}"
+    volumes:
+      # Entire course tree – source of truth for labs + notebooks
+      - .:/home/jovyan/course
+      # Persist Jupyter runtime / notebook checkpoints outside the image
+      - jupyter-data:/home/jovyan/.jupyter
+      - jupyter-local:/home/jovyan/.local
+    working_dir: /home/jovyan/course
+    # Uncomment to pass host ADC into the container for live GCP labs:
+    # volumes:
+    #   - ${HOME}/.config/gcloud:/home/jovyan/.config/gcloud:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/api"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  jupyter-data:
+  jupyter-local:
