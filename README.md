@@ -69,4 +69,7 @@ Students fork or clone the starter template under `labs/` / `capstone` and imple
 
 ## License
 
-Course materials © 2026. Code samples are provided under Apache 2.0 unless otherwise noted.
+This repository uses a dual-scope license:
+
+- **Code** (everything under `labs/`, `notebooks/`, `scripts/`, `docker/`, and related Python/infrastructure files) is released under the **MIT License**. See the root [`LICENSE`](LICENSE) file for the full text.
+- **Written course materials** (theory, lab guides, syllabus, and other content primarily under `docs/`) remain copyrighted © 2026 Robert Fischer. Personal study and teaching use are permitted. Any republication, adaptation, or substantial incorporation into other works **requires clear citation** of the original source. See the `LICENSE` file for the recommended citation format.
