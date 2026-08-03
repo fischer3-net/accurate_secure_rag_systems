@@ -105,7 +105,6 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/fischer3-net/accurate_secure_rag_systems
-  version:
-    provider: mike
+  
 
 copyright: Copyright &copy; Fischer<sup>3</sup> 2026 – Advanced RAG on GCP Workshop
