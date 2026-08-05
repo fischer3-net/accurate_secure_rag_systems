@@ -19,7 +19,7 @@ build/
 # Jupyter
 .ipynb_checkpoints/
 
-# Lab generated artefacts
+# Lab generated Artifacts
 labs/**/output/
 *.jsonl
 

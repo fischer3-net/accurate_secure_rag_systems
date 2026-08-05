@@ -55,16 +55,22 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: pymdownx.superfences.fence_code_format
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
   - admonition
   - tables
   - attr_list
   - md_in_html
   - toc:
       permalink: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
   - Home: index.md
@@ -94,17 +100,19 @@ nav:
     - Requirements: capstone/requirements.md
     - Starter Template: capstone/starter.md
   - Resources:
+    - Testing Environments: resources/environments.md
     - Recommended Tooling: resources/tooling.md
     - Docker / JupyterLab Environment: resources/docker.md
     - VS Code + Container Workflow: resources/vscode.md
     - Google Colab: resources/colab.md
-    - GCP Setup Scripts: resources/gcp-setup.md
+    - GCP Setup (Terraform): resources/gcp-setup.md
     - Further Reading: resources/reading.md
 
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/fischer3-net/accurate_secure_rag_systems
-  
+  version:
+    provider: mike
 
-copyright: Copyright &copy; Fischer<sup>3</sup> 2026 – Advanced RAG on GCP Workshop
+copyright: Copyright Robert Fischer &copy; 2026 – Advanced RAG on GCP Workshop

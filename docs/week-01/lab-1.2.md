@@ -39,19 +39,8 @@ pip install -r labs/01-chunking/requirements.txt
 
 ## Architecture Overview
 
-```
-Query
-  │
-  ├─► BM25 Index (sparse / keyword)  ──────────────┐
-  │                                                 │
-  └─► Dense Index (Vertex or HashingEmbedder)  ────┤
-                                                    ▼
-                                            Reciprocal Rank Fusion
-                                                    │
-                                            Optional re-ranker
-                                                    │
-                                            Top-k results + metadata
-```
+![Query](../assets/images/week-01/week-01-lab-1.2-architecture.jpg)
+
 
 **Why hybrid?**
 
