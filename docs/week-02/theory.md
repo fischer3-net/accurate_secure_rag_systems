@@ -163,7 +163,7 @@ The abstraction you implement in Lab 2.1 (a common store interface) is deliberat
 
 ---
 
-## Addendum: Mathematical Foundations
+## Addendum: Mathematical Foundations (Completely OPTIONAL)
 
 A few core formulas help make the trade-offs concrete. All of them are supported by the MathJax configuration already active on this site.
 

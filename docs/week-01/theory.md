@@ -164,7 +164,9 @@ In Lab 1.1 you will turn this sketch into a full, testable pipeline that also ha
 
 ---
 
-## Addendum: Mathematical Foundations
+
+
+## Addendum: Mathematical Foundations  (Completely OPTIONAL)
 
 The formulas below underpin the retrieval ideas introduced this week. They will reappear in Lab 1.2 (hybrid retrieval + RRF) and again in the evaluation work of Week 4.
 

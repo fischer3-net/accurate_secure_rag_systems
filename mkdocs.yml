@@ -95,6 +95,11 @@ nav:
     - Theory: week-04/theory.md
     - Lab 4.1 – Golden Dataset & Ragas: week-04/lab-4.1.md
     - Lab 4.2 – Cloud Build Quality Gates: week-04/lab-4.2.md
+  - Extra Credit – DFD Fidelity & RAG Implications:
+    - Overview: extra-credit/index.md
+    - Theory: extra-credit/theory.md
+    - Lab EC.1 – Canonical Schema & Validation: extra-credit/lab-ec.1.md
+    - Lab EC.2 – Measuring Fidelity Impact: extra-credit/lab-ec.2.md
   - Capstone Project:
     - Overview: capstone/index.md
     - Requirements: capstone/requirements.md
@@ -115,4 +120,4 @@ extra:
   version:
     provider: mike
 
-copyright: Copyright Robert Fischer &copy; 2026 – Advanced RAG on GCP Workshop
+copyright: Copyright &copy; 2026 – Advanced RAG on GCP Workshop
