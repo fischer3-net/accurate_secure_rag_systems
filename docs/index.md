@@ -28,19 +28,21 @@ By the end of this course you will be able to:
 
 ## Course Structure at a Glance
 
-| Week | Focus | Key Labs |
-|------|-------|----------|
-| 1 | Precision RAG & Domain Chunking | Document-aware chunking, Hybrid retrieval + re-ranking |
-| 2 | Storage Architecture on GCP | AlloyDB pgvector vs Vertex AI Vector Search, Graph RAG |
-| 3 | Skill Architecture & Prompt Hygiene | Modular Function Calling, Dynamic Skill Router |
-| 4 | Automated Evaluation & CI/CD | Golden datasets + Ragas, Cloud Build quality gates |
-| Capstone | Automated DFD Security & SDLC Compliance Evaluator | End-to-end production pipeline |
+| Module | Focus | Key Labs |
+|--------|-------|----------|
+| Week 1 | Precision RAG & Domain Chunking | Document-aware chunking, Hybrid retrieval + re-ranking |
+| Week 2 | Storage Architecture on GCP | AlloyDB-style pgvector vs Vector Search, Graph RAG |
+| Week 3 | Skill Architecture & Prompt Hygiene | Modular Function Calling, Dynamic Skill Router |
+| Week 4 | Automated Evaluation & CI/CD | Golden datasets + Ragas, Cloud Build / Actions quality gates |
+| Extra Credit | DFD Fidelity & RAG Implications | Canonical schema & validation, Measuring fidelity impact |
+| Capstone | Automated DFD Security & SDLC Compliance Evaluator | End-to-end production pipeline (>90% gate) |
 
 ## How to Use This Site
 
-- Navigate via the top tabs or left sidebar.
+- Use the **left sidebar** for the full course tree (Weeks 1–4, Extra Credit, Capstone, Resources).
 - Each week contains an **Overview**, detailed **Theory**, and hands-on **Lab** pages.
-- Lab code and notebooks live in the repository under `/labs` and `/notebooks`.
+- Lab code and notebooks live in the repository under `labs/` and `notebooks/`.
+- Environment setup (Docker, VS Code, Colab, live GCP) is summarized in [Testing Environments](resources/environments.md).
 - The Capstone section contains the full project specification and starter template guidance.
 
 Ready to begin? Start with the [Syllabus](syllabus.md) or jump straight into [Week 1](week-01/index.md).
