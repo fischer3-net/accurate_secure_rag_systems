@@ -158,7 +158,7 @@ A useful design metric is **information density**:
 \delta = \frac{\text{useful bits for the current decision}}{T}
 \]
 
-Progressive disclosure, Parent-Child expansion, schema-constrained skill outputs, and routing all aim to raise \(\delta\) rather than simply maximising the amount of text stuffed into the window.
+Progressive disclosure, Parent-Child expansion, schema-constrained skill outputs, and routing all aim to raise \(\delta\) rather than simply maximizing the amount of text stuffed into the window.
 
 ### A.2 Tool Selection as Classification
 
