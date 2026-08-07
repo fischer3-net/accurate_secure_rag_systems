@@ -1,0 +1,2374 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="4-Week Intensive Hands-on Workshop for Security Professionals, Cloud Architects, and Python Developers">
+      
+      
+        <meta name="author" content="Course Instructors">
+      
+      
+        <link rel="canonical" href="https://fischer3-net.github.io/accurate_secure_rag_systems/week-02/theory/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../lab-2.1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Theory - Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#week-2-theory-storage-architecture-on-google-cloud-platform" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Advanced RAG Architecture, Custom Skills &amp; Evaluation on Google Cloud Platform" class="md-header__button md-logo" aria-label="Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fischer3-net/accurate_secure_rag_systems" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fischer3-net/accurate_secure_rag_systems
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Advanced RAG Architecture, Custom Skills &amp; Evaluation on Google Cloud Platform" class="md-nav__button md-logo" aria-label="Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fischer3-net/accurate_secure_rag_systems" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fischer3-net/accurate_secure_rag_systems
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syllabus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syllabus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../week-01/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 - Precision RAG & Domain Chunking
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1 - Precision RAG & Domain Chunking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-01/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-01/lab-1.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1.1 - Document-aware Chunking & Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-01/lab-1.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1.2 - Hybrid Retrieval + Re-ranking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 - Storage Architecture on GCP
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2 - Storage Architecture on GCP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-storage-choice-matters-for-compliance-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why Storage Choice Matters for Compliance RAG
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deconstructing-the-gcp-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deconstructing the GCP Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Deconstructing the GCP Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-vertex-ai-vector-search-matching-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Vertex AI Vector Search (Matching Engine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-alloydb-cloud-sql-with-pgvector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 AlloyDB / Cloud SQL with pgvector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-bigquery-vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 BigQuery Vector Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-knowledge-graphs-neo4j-on-gke-aura-or-spanner-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Knowledge Graphs (Neo4j on GKE / Aura, or Spanner Graph)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architectural-trade-off-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architectural Trade-off Matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-decision-guidance-for-the-dfd-compliance-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Decision Guidance for the DFD Compliance Use Case
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mapping-week-1-artifacts-to-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Mapping Week 1 Artifacts to Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-mathematical-foundations-completely-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum: Mathematical Foundations (Completely OPTIONAL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum: Mathematical Foundations (Completely OPTIONAL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-vector-similarity-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.1 Vector Similarity Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-approximate-vs-exact-nearest-neighbour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.2 Approximate vs Exact Nearest Neighbour
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-hybrid-retrieval-and-rank-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.3 Hybrid Retrieval and Rank Fusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-why-hybrid-filtering-matters-mathematically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.4 Why Hybrid Filtering Matters Mathematically
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2.1 - AlloyDB pgvector vs Vertex AI Vector Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-2.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2.2 - Graph-Augmented RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../week-03/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 - Skill Architecture & Prompt Hygiene
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3 - Skill Architecture & Prompt Hygiene
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-03/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-03/lab-3.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3.1 - Modular Skills with Vertex AI Function Calling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-03/lab-3.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3.2 - Dynamic Skill Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../week-04/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 - Automated Evaluation & CI/CD
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4 - Automated Evaluation & CI/CD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-04/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-04/lab-4.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4.1 - Golden Dataset & Ragas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-04/lab-4.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4.2 - Cloud Build Quality Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../extra-credit/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extra Credit - DFD Fidelity & RAG Implications
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extra Credit - DFD Fidelity & RAG Implications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-credit/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-credit/lab-ec.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab EC.1 - Canonical Schema & Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-credit/lab-ec.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab EC.2 - Measuring Fidelity Impact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../capstone/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capstone Project
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Capstone Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/starter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Starter Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/environments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recommended Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker / JupyterLab Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/vscode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VS Code + Container Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/colab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google Colab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/gcp-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GCP Setup (Terraform)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/reading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Further Reading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-storage-choice-matters-for-compliance-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why Storage Choice Matters for Compliance RAG
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deconstructing-the-gcp-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deconstructing the GCP Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Deconstructing the GCP Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-vertex-ai-vector-search-matching-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Vertex AI Vector Search (Matching Engine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-alloydb-cloud-sql-with-pgvector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 AlloyDB / Cloud SQL with pgvector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-bigquery-vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 BigQuery Vector Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-knowledge-graphs-neo4j-on-gke-aura-or-spanner-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Knowledge Graphs (Neo4j on GKE / Aura, or Spanner Graph)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architectural-trade-off-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architectural Trade-off Matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-decision-guidance-for-the-dfd-compliance-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Decision Guidance for the DFD Compliance Use Case
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mapping-week-1-artifacts-to-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Mapping Week 1 Artifacts to Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-mathematical-foundations-completely-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum: Mathematical Foundations (Completely OPTIONAL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum: Mathematical Foundations (Completely OPTIONAL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-vector-similarity-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.1 Vector Similarity Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-approximate-vs-exact-nearest-neighbour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.2 Approximate vs Exact Nearest Neighbour
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-hybrid-retrieval-and-rank-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.3 Hybrid Retrieval and Rank Fusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-why-hybrid-filtering-matters-mathematically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.4 Why Hybrid Filtering Matters Mathematically
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="week-2-theory-storage-architecture-on-google-cloud-platform">Week 2 Theory – Storage Architecture on Google Cloud Platform<a class="headerlink" href="#week-2-theory-storage-architecture-on-google-cloud-platform" title="Permanent link">&para;</a></h1>
+<p><strong>Focus:</strong> Choosing the right place to store and query the enriched compliance corpus so that DFD security evaluation is fast, accurate, and operationally sustainable.</p>
+<p>Welcome to Week 2. Last week you did the hard foundational work: you turned raw policy documents into clean, metadata-rich chunks with Parent-Child relationships and a consistent compliance schema. That corpus is now ready to be <em>queried</em>. The question this week is deceptively simple:</p>
+<blockquote>
+<p>Where should those chunks live, and how should we retrieve them?</p>
+</blockquote>
+<p>In a workshop setting the answer feels academic. In a real security architecture review workflow the answer determines whether an interactive tool feels responsive, whether you can prove which version of a control was used on a given date, and whether the system remains affordable six months later when the control library has grown by an order of magnitude.</p>
+<p>This week is about making that decision deliberately rather than by habit or by whatever the last conference talk recommended.</p>
+<hr />
+<h2 id="1-why-storage-choice-matters-for-compliance-rag">1. Why Storage Choice Matters for Compliance RAG<a class="headerlink" href="#1-why-storage-choice-matters-for-compliance-rag" title="Permanent link">&para;</a></h2>
+<p>In Week 1 you built a high-quality, metadata-rich corpus of SDLC and security-baseline chunks. That corpus is currently small enough to live in memory or in a simple JSONL file. A production DFD compliance system will not stay that way. It will grow to include:</p>
+<ul>
+<li>Hundreds of policy documents and control libraries (and multiple versions of each)</li>
+<li>Thousands of historical DFD evaluations and the decisions that were made against them</li>
+<li>Continuous updates as baselines, regulatory mappings, and internal standards change</li>
+</ul>
+<p>The storage layer is no longer a neutral “persistence” concern. It directly shapes the capabilities you can offer:</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Impact on DFD compliance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Interactive review tools need sub-second answers; security architects will not wait</td>
+</tr>
+<tr>
+<td><strong>Hybrid filtering</strong></td>
+<td>“Show only <em>critical</em> trust-boundary controls in the <em>Design</em> phase” is a SQL + vector query</td>
+</tr>
+<tr>
+<td><strong>Structural queries</strong></td>
+<td>“Does any data flow from External Entity X reach Data Store Y without crossing an authenticated process?” is a <em>graph</em> query</td>
+</tr>
+<tr>
+<td><strong>Cost &amp; ops</strong></td>
+<td>Workshop budgets vs. production budgets; who patches the database and when?</td>
+</tr>
+<tr>
+<td><strong>Auditability</strong></td>
+<td>Can you prove which version of a control was retrieved on a given date for an audit?</td>
+</tr>
+</tbody>
+</table>
+<p>No single GCP product wins on every axis. The skill is matching the <strong>dominant query pattern</strong> of your use case to the right engine—or, more commonly, to a thoughtful combination of engines.</p>
+<hr />
+<h2 id="2-deconstructing-the-gcp-options">2. Deconstructing the GCP Options<a class="headerlink" href="#2-deconstructing-the-gcp-options" title="Permanent link">&para;</a></h2>
+<h3 id="21-vertex-ai-vector-search-matching-engine">2.1 Vertex AI Vector Search (Matching Engine)<a class="headerlink" href="#21-vertex-ai-vector-search-matching-engine" title="Permanent link">&para;</a></h3>
+<p>Vertex AI Vector Search is Google’s managed approximate nearest-neighbour (ANN) service. It is purpose-built for high-QPS, low-latency semantic retrieval at scales that most relational databases struggle with.</p>
+<p><strong>Strengths</strong>
+- Extremely low latency even at hundreds of millions or billions of vectors
+- Automatic sharding and scaling
+- Tight integration with Vertex AI embeddings and the Ranking API
+- You can attach a limited set of restrict tokens (metadata filters) at index time</p>
+<p><strong>Weaknesses</strong>
+- Metadata filtering is far more limited than a full relational store
+- Cost is driven by index size + query volume; it can become expensive for corpora that are still modest
+- Overkill if your entire working set fits comfortably in a well-tuned PostgreSQL instance</p>
+<p><strong>Best when:</strong> You need pure (or lightly restricted) semantic search at high query rates and you are willing to push more complex filtering into application code or a secondary store.</p>
+<h3 id="22-alloydb-cloud-sql-with-pgvector">2.2 AlloyDB / Cloud SQL with <code>pgvector</code><a class="headerlink" href="#22-alloydb-cloud-sql-with-pgvector" title="Permanent link">&para;</a></h3>
+<p>This is PostgreSQL (AlloyDB is Google’s high-performance PostgreSQL-compatible service) with the <code>pgvector</code> extension. Vectors live <em>inside</em> the same database that holds your structured metadata, which changes the query model completely.</p>
+<p><strong>Strengths</strong>
+- True hybrid queries in a single statement:<br />
+<code>WHERE risk_tier = 'critical' AND sdlc_phase = 'design' ORDER BY embedding &lt;=&gt; $1</code>
+- Transactional consistency, familiar SQL tooling, Point-in-Time recovery, and easy auditing
+- You can keep Parent-Child relationships as ordinary foreign keys
+- Excellent fit for the metadata-rich corpus you built in Week 1</p>
+<p><strong>Weaknesses</strong>
+- You (or your platform team) manage instance sizing, vacuuming, and index maintenance
+- ANN performance is good, but it is not in the same league as Matching Engine once you reach tens or hundreds of millions of vectors under tight latency SLOs</p>
+<p><strong>Best when:</strong> The majority of queries combine structured filters (control_id, asset_type, sdlc_phase, risk_tier, etc.) with semantic similarity—the exact pattern of most DFD policy lookups.</p>
+<h3 id="23-bigquery-vector-search">2.3 BigQuery Vector Search<a class="headerlink" href="#23-bigquery-vector-search" title="Permanent link">&para;</a></h3>
+<p>BigQuery treats vector similarity as just another SQL function. That makes it extraordinarily convenient for analytic workloads.</p>
+<p><strong>Strengths</strong>
+- Fully serverless; no capacity planning
+- Excellent for joining retrieved chunks against large historical evaluation logs, audit tables, or cost data
+- Cost is scan-based and predictable for batch jobs</p>
+<p><strong>Weaknesses</strong>
+- Latency is higher than online serving stores; it is rarely the right choice for an interactive “type a question, get an answer” experience
+- Not designed for high-QPS transactional access patterns</p>
+<p><strong>Best when:</strong> Offline evaluation (Week 4), audit reporting, nightly re-scoring of the entire corpus, or joining retrieval results with large analytic tables.</p>
+<h3 id="24-knowledge-graphs-neo4j-on-gke-aura-or-spanner-graph">2.4 Knowledge Graphs (Neo4j on GKE / Aura, or Spanner Graph)<a class="headerlink" href="#24-knowledge-graphs-neo4j-on-gke-aura-or-spanner-graph" title="Permanent link">&para;</a></h3>
+<p>A Data Flow Diagram is fundamentally a graph: Processes, Data Stores, External Entities, Data Flows, and Trust Boundaries. Vector search is excellent at finding <em>similar policy language</em>; it is almost useless at answering <em>path</em> questions.</p>
+<p><strong>Strengths</strong>
+- Native model for DFD topology
+- Path queries (“is there an unauthenticated path from External Entity X to Data Store Y that crosses a trust boundary?”) become first-class
+- You can attach policy chunk IDs or control IDs as properties or edges, creating a natural Graph-Augmented RAG pattern</p>
+<p><strong>Weaknesses</strong>
+- Operational overhead is higher than a managed relational or pure vector service
+- Vector search is secondary; most teams end up dual-writing or maintaining a separate vector index for the policy text</p>
+<p><strong>Best when:</strong> You must validate <em>connectivity</em> and <em>trust-boundary crossings</em>, not only “which policy text is similar to this question.” Lab 2.2 explores exactly this pattern.</p>
+<hr />
+<h2 id="3-architectural-trade-off-matrix">3. Architectural Trade-off Matrix<a class="headerlink" href="#3-architectural-trade-off-matrix" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Vertex AI Vector Search</th>
+<th>AlloyDB + pgvector</th>
+<th>BigQuery Vector</th>
+<th>Graph (Neo4j / Spanner Graph)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>p50 latency (online)</strong></td>
+<td>Extremely low</td>
+<td>Low–medium</td>
+<td>Higher</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><strong>Hybrid SQL + vector</strong></td>
+<td>Limited</td>
+<td><strong>Native</strong></td>
+<td>Strong</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td><strong>Graph / path queries</strong></td>
+<td>No</td>
+<td>Limited</td>
+<td>No</td>
+<td><strong>Native</strong></td>
+</tr>
+<tr>
+<td><strong>Scale (vectors)</strong></td>
+<td>Billions</td>
+<td>Millions (practical)</td>
+<td>Billions (batch)</td>
+<td>Millions of nodes/edges</td>
+</tr>
+<tr>
+<td><strong>Cost model</strong></td>
+<td>Index + query units</td>
+<td>Instance + storage</td>
+<td>Scan / slot</td>
+<td>Instance + storage</td>
+</tr>
+<tr>
+<td><strong>Ops complexity</strong></td>
+<td>Low (managed)</td>
+<td>Medium</td>
+<td>Low</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td><strong>Transactional updates</strong></td>
+<td>Eventual</td>
+<td>Strong</td>
+<td>Append-oriented</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td><strong>Audit / versioning</strong></td>
+<td>Application-level</td>
+<td>Easy (tables + history)</td>
+<td>Excellent</td>
+<td>Application-level</td>
+</tr>
+</tbody>
+</table>
+<p>Use this matrix as a decision aid, not a scorecard. Real systems almost always combine two or more of these engines.</p>
+<hr />
+<h2 id="4-decision-guidance-for-the-dfd-compliance-use-case">4. Decision Guidance for the DFD Compliance Use Case<a class="headerlink" href="#4-decision-guidance-for-the-dfd-compliance-use-case" title="Permanent link">&para;</a></h2>
+<p>A useful way to decide is to start from the dominant query pattern rather than from product preference:</p>
+<p><img alt="Descision Guidance" src="../../assets/images/week-02/theory_descision_guidance.jpg" /></p>
+<p><strong>Practical hybrid pattern used in many production systems (and in the Capstone):</strong></p>
+<ol>
+<li><strong>AlloyDB (or Cloud SQL) + pgvector</strong> as the system of record for chunks + metadata. This gives you strong hybrid filtering, Parent-Child joins, and straightforward auditing.</li>
+<li>Optional <strong>Vertex AI Vector Search</strong> replica for ultra-low-latency pure semantic endpoints when QPS or scale requires it.</li>
+<li>Optional <strong>graph overlay</strong> (Neo4j / Spanner Graph) for DFD topology, with edges that point back to chunk IDs in the relational/vector store.</li>
+</ol>
+<p>This layered approach lets you start simple (Lab 2.1) and add structural power only where the use case demands it (Lab 2.2).</p>
+<hr />
+<h2 id="5-mapping-week-1-artifacts-to-storage">5. Mapping Week 1 Artifacts to Storage<a class="headerlink" href="#5-mapping-week-1-artifacts-to-storage" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Week 1 artefact</th>
+<th>Natural home</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enriched chunks (<code>ChunkRecord</code>)</td>
+<td>AlloyDB table or Vertex AI index documents</td>
+</tr>
+<tr>
+<td>Metadata filters (asset_type, risk_tier, …)</td>
+<td>SQL <code>WHERE</code> clauses or Vertex restrict tokens</td>
+</tr>
+<tr>
+<td>Parent–Child links</td>
+<td>Self-referential foreign key or graph edge</td>
+</tr>
+<tr>
+<td>Evaluation queries</td>
+<td>BigQuery table for offline scoring</td>
+</tr>
+<tr>
+<td>DFD topology (Lab 2.2)</td>
+<td>Graph nodes + edges</td>
+</tr>
+</tbody>
+</table>
+<p>The abstraction you implement in Lab 2.1 (a common store interface) is deliberately designed so that later labs and the Capstone can swap implementations without rewriting the retrieval logic that sits above them.</p>
+<hr />
+<h2 id="6-key-takeaways">6. Key Takeaways<a class="headerlink" href="#6-key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Storage is a <strong>query-pattern</strong> decision, not a popularity contest.</li>
+<li>For DFD security evaluation the two most valuable capabilities are <strong>hybrid SQL + vector</strong> (AlloyDB / pgvector) and <strong>path / connectivity queries</strong> (graph).</li>
+<li>Vertex AI Vector Search shines when pure semantic latency at scale is the bottleneck.</li>
+<li>BigQuery is the natural home for evaluation, audit, and batch re-scoring.</li>
+<li>Most production systems end up with a hybrid architecture rather than a single engine.</li>
+<li>The Capstone will ask you to justify and implement at least one of these hybrid patterns with evidence from the benchmarks you run this week.</li>
+</ul>
+<p><strong>Next:</strong> Lab 2.1 benchmarks an AlloyDB-style hybrid retrieval path against a Vector Search-style pure semantic path on the same corpus. Lab 2.2 adds the graph layer so you can answer structural questions that pure vector search cannot.</p>
+<hr />
+<h2 id="addendum-mathematical-foundations-completely-optional">Addendum: Mathematical Foundations (Completely OPTIONAL)<a class="headerlink" href="#addendum-mathematical-foundations-completely-optional" title="Permanent link">&para;</a></h2>
+<p>A few core formulas help make the trade-offs concrete. All of them are supported by the MathJax configuration already active on this site.</p>
+<h3 id="a1-vector-similarity-metrics">A.1 Vector Similarity Metrics<a class="headerlink" href="#a1-vector-similarity-metrics" title="Permanent link">&para;</a></h3>
+<p>Most vector stores (including <code>pgvector</code> and Vertex AI Vector Search) support one or more of the following distance / similarity functions. For unit-normalised embeddings the relationships are especially clean.</p>
+<p><strong>Cosine similarity</strong></p>
+<div class="arithmatex">\[
+\text{sim}_{\cos}(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|}
+\]</div>
+<p>When both vectors are L2-normalised this reduces to a simple inner product:</p>
+<div class="arithmatex">\[
+\text{sim}_{\cos}(\mathbf{u}, \mathbf{v}) = \mathbf{u} \cdot \mathbf{v}
+\]</div>
+<p><strong>Euclidean (L2) distance</strong></p>
+<div class="arithmatex">\[
+d_{L2}(\mathbf{u}, \mathbf{v}) = \|\mathbf{u} - \mathbf{v}\|_2 = \sqrt{\sum_i (u_i - v_i)^2}
+\]</div>
+<p><strong>Inner product</strong> (frequently used directly by ANN indexes)</p>
+<div class="arithmatex">\[
+\text{IP}(\mathbf{u}, \mathbf{v}) = \mathbf{u} \cdot \mathbf{v}
+\]</div>
+<p>In <code>pgvector</code> the operators you will see most often are:</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;=&gt;</code></td>
+<td>Cosine distance</td>
+</tr>
+<tr>
+<td><code>&lt;-&gt;</code></td>
+<td>Euclidean (L2) distance</td>
+</tr>
+<tr>
+<td><code>&lt;#&gt;</code></td>
+<td>Negative inner product</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a2-approximate-vs-exact-nearest-neighbour">A.2 Approximate vs Exact Nearest Neighbour<a class="headerlink" href="#a2-approximate-vs-exact-nearest-neighbour" title="Permanent link">&para;</a></h3>
+<p>Exact nearest-neighbour search over <span class="arithmatex">\(n\)</span> vectors in dimension <span class="arithmatex">\(d\)</span> is <span class="arithmatex">\(O(nd)\)</span> per query. Approximate methods (HNSW, IVF, ScaNN, etc.) trade a small amount of recall for orders-of-magnitude lower latency. Vertex AI Vector Search is an ANN service; <code>pgvector</code> can be configured for either exact or approximate search depending on the index type you create.</p>
+<h3 id="a3-hybrid-retrieval-and-rank-fusion">A.3 Hybrid Retrieval and Rank Fusion<a class="headerlink" href="#a3-hybrid-retrieval-and-rank-fusion" title="Permanent link">&para;</a></h3>
+<p>When you combine a dense (semantic) ranked list with a sparse (BM25 / keyword) ranked list you need a way to merge them. Reciprocal Rank Fusion (already introduced in Week 1) is deliberately simple and robust:</p>
+<div class="arithmatex">\[
+\text{score}_{\text{RRF}}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}_r(d)}
+\]</div>
+<p>where <span class="arithmatex">\(k = 60\)</span> is the conventional constant and <span class="arithmatex">\(\text{rank}_r(d)\)</span> is the 1-based rank of document <span class="arithmatex">\(d\)</span> in ranked list <span class="arithmatex">\(r\)</span>.</p>
+<p>A weighted linear combination is also common when you have calibrated scores:</p>
+<div class="arithmatex">\[
+\text{score}_{\text{hybrid}}(d) = \alpha \cdot \text{sim}_{\text{dense}}(d) + (1 - \alpha) \cdot \text{sim}_{\text{sparse}}(d)
+\]</div>
+<p>In practice, RRF is often preferred for compliance workloads because it requires no score normalisation and remains stable when the underlying retrievers produce incomparable numeric ranges.</p>
+<h3 id="a4-why-hybrid-filtering-matters-mathematically">A.4 Why Hybrid Filtering Matters Mathematically<a class="headerlink" href="#a4-why-hybrid-filtering-matters-mathematically" title="Permanent link">&para;</a></h3>
+<p>A pure vector query returns the <span class="arithmatex">\(k\)</span> nearest neighbours under a chosen metric. Adding structured predicates changes the problem to a <em>constrained</em> nearest-neighbour search:</p>
+<div class="arithmatex">\[
+\arg\max_{d \in D'} \text{sim}(q, d)
+\quad\text{where}\quad
+D' = \{ d \in D \mid \text{risk\_tier}(d) = \text{critical} \land \text{sdlc\_phase}(d) = \text{design} \}
+\]</div>
+<p>Engines that can apply the predicate <em>before</em> or <em>during</em> the vector search (AlloyDB / pgvector, BigQuery) avoid materialising a large candidate set only to discard most of it in application code. That difference is often the dominant factor in both latency and cost for metadata-rich compliance corpora.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 – Advanced RAG on GCP Workshop - Robert Fischer, All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/fischer3-net/accurate_secure_rag_systems" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

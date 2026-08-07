@@ -1,0 +1,2303 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="4-Week Intensive Hands-on Workshop for Security Professionals, Cloud Architects, and Python Developers">
+      
+      
+        <meta name="author" content="Course Instructors">
+      
+      
+        <link rel="canonical" href="https://fischer3-net.github.io/accurate_secure_rag_systems/week-01/theory/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../lab-1.1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Theory - Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#week-1-theory-precision-rag-domain-chunking-for-compliance-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Advanced RAG Architecture, Custom Skills &amp; Evaluation on Google Cloud Platform" class="md-header__button md-logo" aria-label="Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fischer3-net/accurate_secure_rag_systems" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fischer3-net/accurate_secure_rag_systems
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Advanced RAG Architecture, Custom Skills &amp; Evaluation on Google Cloud Platform" class="md-nav__button md-logo" aria-label="Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Advanced RAG Architecture, Custom Skills & Evaluation on Google Cloud Platform
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fischer3-net/accurate_secure_rag_systems" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fischer3-net/accurate_secure_rag_systems
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syllabus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syllabus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1 - Precision RAG & Domain Chunking
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1 - Precision RAG & Domain Chunking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-multi-document-alignment-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Multi-Document Alignment Problem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Multi-Document Alignment Problem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-standard-naive-rag-fails-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why standard “naive RAG” fails here
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-advanced-chunking-strategies-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Advanced Chunking Strategies in Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Advanced Chunking Strategies in Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-beyond-fixed-size-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Beyond Fixed-Size Chunking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-parent-child-small-to-big-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Parent-Child / Small-to-Big Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-metadata-enrichment-critical-for-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Metadata Enrichment (Critical for Compliance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bridging-to-hybrid-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bridging to Hybrid Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-python-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Python Building Blocks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-mathematical-foundations-completely-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum: Mathematical Foundations (Completely OPTIONAL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum: Mathematical Foundations (Completely OPTIONAL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-dense-retrieval-cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.1 Dense Retrieval – Cosine Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-sparse-retrieval-bm25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.2 Sparse Retrieval – BM25
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-reciprocal-rank-fusion-rrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.3 Reciprocal Rank Fusion (RRF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-why-parent-child-helps-information-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.4 Why Parent-Child Helps Information Density
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-1.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1.1 - Document-aware Chunking & Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-1.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1.2 - Hybrid Retrieval + Re-ranking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../week-02/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2 - Storage Architecture on GCP
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2 - Storage Architecture on GCP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-02/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-02/lab-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2.1 - AlloyDB pgvector vs Vertex AI Vector Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-02/lab-2.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2.2 - Graph-Augmented RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../week-03/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3 - Skill Architecture & Prompt Hygiene
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3 - Skill Architecture & Prompt Hygiene
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-03/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-03/lab-3.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3.1 - Modular Skills with Vertex AI Function Calling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-03/lab-3.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3.2 - Dynamic Skill Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../week-04/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4 - Automated Evaluation & CI/CD
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4 - Automated Evaluation & CI/CD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-04/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-04/lab-4.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4.1 - Golden Dataset & Ragas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week-04/lab-4.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4.2 - Cloud Build Quality Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../extra-credit/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extra Credit - DFD Fidelity & RAG Implications
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extra Credit - DFD Fidelity & RAG Implications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-credit/theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-credit/lab-ec.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab EC.1 - Canonical Schema & Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-credit/lab-ec.2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab EC.2 - Measuring Fidelity Impact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../capstone/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capstone Project
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Capstone Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../capstone/starter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Starter Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/environments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recommended Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker / JupyterLab Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/vscode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VS Code + Container Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/colab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google Colab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/gcp-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GCP Setup (Terraform)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/reading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Further Reading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-multi-document-alignment-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Multi-Document Alignment Problem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Multi-Document Alignment Problem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-standard-naive-rag-fails-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why standard “naive RAG” fails here
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-advanced-chunking-strategies-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Advanced Chunking Strategies in Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Advanced Chunking Strategies in Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-beyond-fixed-size-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Beyond Fixed-Size Chunking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-parent-child-small-to-big-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Parent-Child / Small-to-Big Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-metadata-enrichment-critical-for-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Metadata Enrichment (Critical for Compliance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bridging-to-hybrid-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bridging to Hybrid Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-python-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Python Building Blocks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-mathematical-foundations-completely-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum: Mathematical Foundations (Completely OPTIONAL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum: Mathematical Foundations (Completely OPTIONAL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-dense-retrieval-cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.1 Dense Retrieval – Cosine Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-sparse-retrieval-bm25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.2 Sparse Retrieval – BM25
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-reciprocal-rank-fusion-rrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.3 Reciprocal Rank Fusion (RRF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-why-parent-child-helps-information-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A.4 Why Parent-Child Helps Information Density
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="week-1-theory-precision-rag-domain-chunking-for-compliance-data">Week 1 Theory – Precision RAG &amp; Domain Chunking for Compliance Data<a class="headerlink" href="#week-1-theory-precision-rag-domain-chunking-for-compliance-data" title="Permanent link">&para;</a></h1>
+<p><strong>Focus:</strong> Why naive RAG fails on multi-document compliance tasks and how to design chunking + metadata strategies that preserve hierarchical and cross-document relationships.</p>
+<p>Welcome to Week 1. If you’ve ever tried to build a RAG system that can answer a real security architecture question—something like “Does this Data Flow Diagram violate any controls in our SDLC handbook or the technical security baseline?”—you’ve probably already felt the pain. The system either retrieves the wrong fragments, loses critical context, or worse, invents plausible-sounding compliance statements that no human reviewer would accept.</p>
+<p>This week is about fixing that foundation. We move beyond “just chunk and embed” and treat retrieval as a deliberate design problem for compliance-grade accuracy.</p>
+<hr />
+<h2 id="1-the-multi-document-alignment-problem">1. The Multi-Document Alignment Problem<a class="headerlink" href="#1-the-multi-document-alignment-problem" title="Permanent link">&para;</a></h2>
+<p>Security and architecture teams don’t ask isolated questions about a single document. They ask questions that require simultaneous reasoning across multiple sources of truth:</p>
+<blockquote>
+<p>“Does this Data Flow Diagram violate any controls in our SDLC handbook or the technical security baseline regarding trust boundaries and external entity access?”</p>
+</blockquote>
+<p>That single question forces the system to align three very different kinds of content:</p>
+<table>
+<thead>
+<tr>
+<th>Document Type</th>
+<th>Typical Structure</th>
+<th>Granularity of Interest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Flow Diagram (DFD)</td>
+<td>Processes, Data Stores, External Entities, Data Flows, Trust Boundaries</td>
+<td>Component / edge level</td>
+</tr>
+<tr>
+<td>SDLC Handbook</td>
+<td>Hierarchical sections, gates, phase requirements</td>
+<td>Section / control level</td>
+</tr>
+<tr>
+<td>Technical Security Baseline</td>
+<td>Numbered controls, risk statements, implementation guidance</td>
+<td>Individual control or sub-control</td>
+</tr>
+</tbody>
+</table>
+<p>These documents speak different languages and operate at different levels of abstraction. A DFD is a graph of elements and relationships. An SDLC handbook is a hierarchical policy narrative. A security baseline is a flat (or lightly nested) catalogue of discrete controls. Getting a retrieval system to treat them as a coherent knowledge base is the core challenge of this week.</p>
+<h3 id="why-standard-naive-rag-fails-here">Why standard “naive RAG” fails here<a class="headerlink" href="#why-standard-naive-rag-fails-here" title="Permanent link">&para;</a></h3>
+<p>Most off-the-shelf RAG pipelines apply a fixed-size or simple recursive splitter and hope for the best. That approach collapses under the weight of real compliance work for four reasons:</p>
+<ol>
+<li>
+<p><strong>Hierarchy mismatch</strong><br />
+   A fixed-size or pure semantic chunk from the SDLC handbook frequently contains only a partial control statement. The corresponding DFD element may need the parent section context (e.g., “Phase 3 – Architecture Review Gate”) to be correctly evaluated. Without that parent context, the LLM is forced to guess the broader rule, and guessing is exactly what we cannot tolerate in a security setting.</p>
+</li>
+<li>
+<p><strong>Cross-document entity resolution</strong><br />
+   Terms such as “External Entity”, “Trust Boundary”, “Data Store”, or specific asset names appear in both the diagram and the policy documents—but with different surrounding language and different levels of formality. Pure vector similarity often retrieves the wrong sense of the term. You end up with a chunk that talks about external entities in a completely different regulatory context.</p>
+</li>
+<li>
+<p><strong>Loss of structural relationships</strong><br />
+   Security evaluation frequently depends on connectivity: Process → Data Store → External Entity, and especially on whether a flow crosses a trust boundary. Flat chunks destroy this graph-like information. Once the edges are gone, the model can no longer reason about paths or boundary crossings.</p>
+</li>
+<li>
+<p><strong>Hallucination under sparse retrieval</strong><br />
+   When the top-k retrieved chunks do not contain the exact control language the question needs, the LLM tends to invent plausible but non-grounded compliance statements. In a security review that behaviour is unacceptable. We need retrieval that is precise enough that the model rarely has to fill gaps with imagination.</p>
+</li>
+</ol>
+<p><strong>Goal of this week:</strong> Build a retrieval foundation that preserves hierarchy, enriches domain metadata, and surfaces the right policy context for any given DFD element or flow. Everything that follows in Labs 1.1 and 1.2, and ultimately the Capstone, rests on this foundation.</p>
+<hr />
+<h2 id="2-advanced-chunking-strategies-in-python">2. Advanced Chunking Strategies in Python<a class="headerlink" href="#2-advanced-chunking-strategies-in-python" title="Permanent link">&para;</a></h2>
+<h3 id="21-beyond-fixed-size-chunking">2.1 Beyond Fixed-Size Chunking<a class="headerlink" href="#21-beyond-fixed-size-chunking" title="Permanent link">&para;</a></h3>
+<p>Fixed-size (or even recursive character) splitters are convenient. They are also the single most common reason compliance RAG systems under-perform. Logical units that matter for security get arbitrarily cut:</p>
+<ul>
+<li>A security control should rarely be split mid-sentence.</li>
+<li>A Markdown heading hierarchy in an SDLC handbook is a strong, reliable signal of semantic boundaries.</li>
+<li>JSON or XML representations of DFDs have explicit element boundaries that should be respected rather than ignored.</li>
+</ul>
+<p><strong>Preferred approaches for this course:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>When to use</th>
+<th>Library / Technique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Markdown header-aware</td>
+<td>SDLC handbooks, security baselines written in Markdown</td>
+<td><code>MarkdownHeaderTextSplitter</code></td>
+</tr>
+<tr>
+<td>Document-structure aware</td>
+<td>Structured policy (JSON, XML, YAML)</td>
+<td>Custom recursive split on keys / tags</td>
+</tr>
+<tr>
+<td>Parent-Child (Small-to-Big)</td>
+<td>Dense control catalogues</td>
+<td>Store small precise chunks + larger parent context</td>
+</tr>
+<tr>
+<td>Semantic chunking</td>
+<td>Long narrative sections</td>
+<td>Embedding-based boundary detection (use sparingly)</td>
+</tr>
+</tbody>
+</table>
+<p>Markdown header-aware splitting is our default starting point for the policy documents you will work with this week. It respects the document author’s own structure instead of imposing an arbitrary token window.</p>
+<h3 id="22-parent-child-small-to-big-retrieval">2.2 Parent-Child / Small-to-Big Retrieval<a class="headerlink" href="#22-parent-child-small-to-big-retrieval" title="Permanent link">&para;</a></h3>
+<p>This pattern is particularly powerful for security standards and is one of the core techniques you will implement in Lab 1.1.</p>
+<ul>
+<li><strong>Child chunks</strong> are small, precise units—individual controls or sub-requirements. They are ideal for accurate vector matching.</li>
+<li><strong>Parent chunks</strong> contain the surrounding section, the rationale, related controls, and any phase or gate context.</li>
+<li>At retrieval time you surface the child (for precision) <strong>and</strong> the parent (for context), or you expand to the parent after the child is selected.</li>
+</ul>
+<p>This design avoids the classic trade-off between “too small → loses meaning” and “too large → dilutes relevance.” The child gives you a high-precision hit; the parent restores the hierarchical context the security reviewer actually needs.</p>
+<p>In practice you will store both, link them with a <code>parent_id</code>, and decide at query time whether to return the child alone, the parent alone, or both. That flexibility becomes extremely useful later when you start evaluating retrieval quality (Week 4).</p>
+<h3 id="23-metadata-enrichment-critical-for-compliance">2.3 Metadata Enrichment (Critical for Compliance)<a class="headerlink" href="#23-metadata-enrichment-critical-for-compliance" title="Permanent link">&para;</a></h3>
+<p>Raw text chunks are rarely enough. Once you move into production security use cases you will want to filter, rank, and audit retrieval results using domain knowledge that lives outside the text itself. For DFD security evaluation we recommend a consistent metadata schema from day one:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;doc_type&quot;</span><span class="p">:</span> <span class="s2">&quot;sdlc_handbook&quot;</span> <span class="o">|</span> <span class="s2">&quot;security_baseline&quot;</span> <span class="o">|</span> <span class="s2">&quot;dfd&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="s2">&quot;section&quot;</span><span class="p">:</span> <span class="s2">&quot;3.2 Architecture Review Gate&quot;</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="s2">&quot;control_id&quot;</span><span class="p">:</span> <span class="s2">&quot;SEC-DFD-014&quot;</span><span class="p">,</span>          <span class="c1"># if present</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="s2">&quot;asset_type&quot;</span><span class="p">:</span> <span class="s2">&quot;data_store&quot;</span> <span class="o">|</span> <span class="s2">&quot;process&quot;</span> <span class="o">|</span> <span class="s2">&quot;external_entity&quot;</span> <span class="o">|</span> <span class="s2">&quot;trust_boundary&quot;</span> <span class="o">|</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">&quot;risk_tier&quot;</span><span class="p">:</span> <span class="s2">&quot;critical&quot;</span> <span class="o">|</span> <span class="s2">&quot;high&quot;</span> <span class="o">|</span> <span class="s2">&quot;medium&quot;</span> <span class="o">|</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="s2">&quot;sdlc_phase&quot;</span><span class="p">:</span> <span class="s2">&quot;requirements&quot;</span> <span class="o">|</span> <span class="s2">&quot;design&quot;</span> <span class="o">|</span> <span class="s2">&quot;implementation&quot;</span> <span class="o">|</span> <span class="s2">&quot;verification&quot;</span> <span class="o">|</span> <span class="s2">&quot;maintenance&quot;</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="s2">&quot;source_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;gs://... or relative path&quot;</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="s2">&quot;parent_id&quot;</span><span class="p">:</span> <span class="s2">&quot;uuid-of-parent-chunk&quot;</span><span class="p">,</span>  <span class="c1"># for Parent-Child</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="s2">&quot;chunk_type&quot;</span><span class="p">:</span> <span class="s2">&quot;child&quot;</span> <span class="o">|</span> <span class="s2">&quot;parent&quot;</span> <span class="o">|</span> <span class="s2">&quot;standalone&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>These fields enable several capabilities that pure vector search cannot provide:</p>
+<ul>
+<li><strong>Pre-filtering</strong> before (or after) vector search – e.g., only retrieve controls that apply to the Design phase or that mention trust boundaries.</li>
+<li><strong>Deterministic assertions</strong> in evaluation (Lab 4) – you can write tests that check whether a required control_id or risk_tier appeared in the retrieved set.</li>
+<li><strong>Better re-ranking signals</strong> (Lab 1.2) – metadata becomes an additional ranking feature alongside semantic similarity and keyword match.</li>
+<li><strong>Traceability</strong> in the final compliance report (Capstone) – every claim can be traced back to a specific source_uri, section, and control_id.</li>
+</ul>
+<p>Treat metadata as first-class data, not an afterthought. The schema above is the minimum you should aim for; you are free to extend it, but do not remove the core fields—later labs and the Capstone evaluation suite expect them.</p>
+<hr />
+<h2 id="3-bridging-to-hybrid-retrieval">3. Bridging to Hybrid Retrieval<a class="headerlink" href="#3-bridging-to-hybrid-retrieval" title="Permanent link">&para;</a></h2>
+<p>High-quality, metadata-rich chunks are necessary but not sufficient. Once you have them, the next design decision is how you actually retrieve.</p>
+<p>Pure dense retrieval (embeddings only) is excellent at semantic similarity but weak on exact control IDs, rare technical terms, and precise asset names. Pure keyword search (BM25 or equivalent) is the opposite: excellent on exact matches, weaker on paraphrases. The practical answer for compliance workloads is hybrid retrieval:</p>
+<ul>
+<li><strong>Dense vectors</strong> (Vertex AI <code>text-embedding-004</code> or later) for semantic similarity</li>
+<li><strong>Sparse / keyword signals</strong> (BM25 or equivalent) for exact control IDs, asset names, and rare technical terms</li>
+<li><strong>Reciprocal Rank Fusion (RRF)</strong> or a learned re-ranker to merge the two ranked lists into a single high-quality ranking</li>
+</ul>
+<p>Lab 1.2 implements the hybrid + re-ranking layer. Lab 1.1 focuses on producing the clean, enriched corpus that makes hybrid retrieval effective. If the chunks going into the index are poorly structured or missing metadata, no amount of fancy fusion will save you.</p>
+<hr />
+<h2 id="recommended-python-building-blocks">Recommended Python Building Blocks<a class="headerlink" href="#recommended-python-building-blocks" title="Permanent link">&para;</a></h2>
+<p>Here is a minimal, realistic starting point using LangChain’s text splitters. You will expand this significantly in the lab, but the pattern is already visible:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">MarkdownHeaderTextSplitter</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Example: header-aware splitting for an SDLC handbook</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">headers_to_split_on</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="s2">&quot;h1&quot;</span><span class="p">),</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="p">(</span><span class="s2">&quot;##&quot;</span><span class="p">,</span> <span class="s2">&quot;h2&quot;</span><span class="p">),</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">(</span><span class="s2">&quot;###&quot;</span><span class="p">,</span> <span class="s2">&quot;h3&quot;</span><span class="p">),</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">]</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">markdown_splitter</span> <span class="o">=</span> <span class="n">MarkdownHeaderTextSplitter</span><span class="p">(</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="n">headers_to_split_on</span><span class="o">=</span><span class="n">headers_to_split_on</span><span class="p">,</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="n">strip_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>          <span class="c1"># keep the headers in the chunk text</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">)</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="c1"># After splitting, enrich each resulting Document with domain metadata</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="c1"># before writing to BigQuery or preparing for Vertex AI Vector Search.</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="c1"># Parent-Child linking and risk-tier / asset-type tagging happen in this</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="c1"># enrichment step.</span>
+</span></code></pre></div>
+<p>In Lab 1.1 you will turn this sketch into a full, testable pipeline that also handles Parent-Child relationships and the complete metadata schema shown earlier.</p>
+<hr />
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Naive chunking destroys the hierarchical and cross-document relationships required for trustworthy DFD compliance evaluation.</li>
+<li>Document-aware splitting + Parent-Child indexing + rich domain metadata form the foundation of accurate RAG for security and architecture use cases.</li>
+<li>Everything built in Lab 1.1 becomes the corpus that Labs 1.2, 2.x, 3.x and the Capstone will query against. Invest the time to get the chunks and metadata right; the rest of the course builds on this work.</li>
+</ul>
+<p><strong>Next:</strong> Implement the ingestion and enrichment pipeline in <a href="../lab-1.1/">Lab 1.1</a>.</p>
+<hr />
+<h2 id="addendum-mathematical-foundations-completely-optional">Addendum: Mathematical Foundations  (Completely OPTIONAL)<a class="headerlink" href="#addendum-mathematical-foundations-completely-optional" title="Permanent link">&para;</a></h2>
+<p>The formulas below underpin the retrieval ideas introduced this week. They will reappear in Lab 1.2 (hybrid retrieval + RRF) and again in the evaluation work of Week 4.</p>
+<h3 id="a1-dense-retrieval-cosine-similarity">A.1 Dense Retrieval – Cosine Similarity<a class="headerlink" href="#a1-dense-retrieval-cosine-similarity" title="Permanent link">&para;</a></h3>
+<p>Modern embedding models map text to high-dimensional vectors. The most common similarity measure between a query vector <span class="arithmatex">\(\mathbf{q}\)</span> and a document vector <span class="arithmatex">\(\mathbf{d}\)</span> is cosine similarity:</p>
+<div class="arithmatex">\[
+\text{sim}_{\cos}(\mathbf{q}, \mathbf{d}) = \frac{\mathbf{q} \cdot \mathbf{d}}{\|\mathbf{q}\| \|\mathbf{d}\|}
+\]</div>
+<p>When both vectors are L2-normalised (a common practice), this simplifies to the inner product:</p>
+<div class="arithmatex">\[
+\text{sim}_{\cos}(\mathbf{q}, \mathbf{d}) = \mathbf{q} \cdot \mathbf{d}
+\]</div>
+<p>Dense retrieval ranks documents by this score. It excels at semantic paraphrases (“unprotected flows across trust boundaries”) but is weaker on exact control IDs and rare technical terms.</p>
+<h3 id="a2-sparse-retrieval-bm25">A.2 Sparse Retrieval – BM25<a class="headerlink" href="#a2-sparse-retrieval-bm25" title="Permanent link">&para;</a></h3>
+<p>BM25 is the classic bag-of-words ranking function. For a query <span class="arithmatex">\(q\)</span> containing terms <span class="arithmatex">\(t\)</span>, the score of a document <span class="arithmatex">\(d\)</span> is:</p>
+<div class="arithmatex">\[
+\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t, d) \cdot (k_1 + 1)}{f(t, d) + k_1 \cdot \bigl(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\bigr)}
+\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(f(t, d)\)</span> is the term frequency of <span class="arithmatex">\(t\)</span> in <span class="arithmatex">\(d\)</span></li>
+<li><span class="arithmatex">\(|d|\)</span> is the length of document <span class="arithmatex">\(d\)</span></li>
+<li><span class="arithmatex">\(\text{avgdl}\)</span> is the average document length in the collection</li>
+<li><span class="arithmatex">\(k_1\)</span> and <span class="arithmatex">\(b\)</span> are free parameters (typical defaults: <span class="arithmatex">\(k_1 = 1.2\)</span>, <span class="arithmatex">\(b = 0.75\)</span>)</li>
+<li><span class="arithmatex">\(\text{IDF}(t)\)</span> is an inverse-document-frequency weight that down-weights common terms</li>
+</ul>
+<p>BM25 is excellent at exact control IDs (<code>SEC-DFD-014</code>), asset names, and regulatory language—the complementary strength to dense embeddings.</p>
+<h3 id="a3-reciprocal-rank-fusion-rrf">A.3 Reciprocal Rank Fusion (RRF)<a class="headerlink" href="#a3-reciprocal-rank-fusion-rrf" title="Permanent link">&para;</a></h3>
+<p>When you have two (or more) ranked lists—one from dense retrieval, one from BM25—you need a way to merge them without assuming the scores are on the same numeric scale. Reciprocal Rank Fusion does exactly that:</p>
+<div class="arithmatex">\[
+\text{score}_{\text{RRF}}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}_r(d)}
+\]</div>
+<ul>
+<li><span class="arithmatex">\(R\)</span> is the set of ranked lists (dense, sparse, \ldots)</li>
+<li><span class="arithmatex">\(\text{rank}_r(d)\)</span> is the 1-based rank of document <span class="arithmatex">\(d\)</span> in list <span class="arithmatex">\(r\)</span> (or a large constant if <span class="arithmatex">\(d\)</span> does not appear)</li>
+<li><span class="arithmatex">\(k = 60\)</span> is the conventional constant that softens the impact of very high ranks</li>
+</ul>
+<p>RRF needs no score normalisation and remains stable when the underlying retrievers produce incomparable score ranges. This is why it is the default fusion method in Lab 1.2.</p>
+<h3 id="a4-why-parent-child-helps-information-density">A.4 Why Parent-Child Helps Information Density<a class="headerlink" href="#a4-why-parent-child-helps-information-density" title="Permanent link">&para;</a></h3>
+<p>A short mathematical intuition for the Parent-Child (Small-to-Big) pattern:</p>
+<p>Let <span class="arithmatex">\(c\)</span> be a small child chunk (high precision, lower context) and <span class="arithmatex">\(p\)</span> its parent (higher context, potentially diluted relevance).<br />
+At retrieval time we can:</p>
+<ol>
+<li>Rank by the child embedding: <span class="arithmatex">\(\text{sim}(q, c)\)</span> — maximises precision.</li>
+<li>Expand to the parent text for the final context window: the LLM receives <span class="arithmatex">\(p\)</span> (or <span class="arithmatex">\(c \oplus p\)</span>).</li>
+</ol>
+<p>This separates the <em>matching</em> problem (best solved by a tight semantic unit) from the <em>context</em> problem (best solved by the surrounding hierarchical section). The net effect is higher effective information density in the prompt without sacrificing retrieval precision.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 – Advanced RAG on GCP Workshop - Robert Fischer, All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/fischer3-net/accurate_secure_rag_systems" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
