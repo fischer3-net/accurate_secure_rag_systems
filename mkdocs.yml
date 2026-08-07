@@ -23,11 +23,13 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.tabs
+    # Sidebar-first navigation (no top tabs) so every section is visible,
+    # including Extra Credit, Capstone, and Resources.
     - navigation.sections
     - navigation.expand
     - navigation.top
     - navigation.tracking
+    - navigation.indexes
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -75,31 +77,31 @@ extra_javascript:
 nav:
   - Home: index.md
   - Syllabus: syllabus.md
-  - Week 1 – Precision RAG & Domain Chunking:
+  - Week 1 - Precision RAG & Domain Chunking:
     - Overview: week-01/index.md
     - Theory: week-01/theory.md
-    - Lab 1.1 – Document-aware Chunking & Metadata: week-01/lab-1.1.md
-    - Lab 1.2 – Hybrid Retrieval + Re-ranking: week-01/lab-1.2.md
-  - Week 2 – Storage Architecture on GCP:
+    - Lab 1.1 - Document-aware Chunking & Metadata: week-01/lab-1.1.md
+    - Lab 1.2 - Hybrid Retrieval + Re-ranking: week-01/lab-1.2.md
+  - Week 2 - Storage Architecture on GCP:
     - Overview: week-02/index.md
     - Theory: week-02/theory.md
-    - Lab 2.1 – AlloyDB pgvector vs Vertex AI Vector Search: week-02/lab-2.1.md
-    - Lab 2.2 – Graph-Augmented RAG: week-02/lab-2.2.md
-  - Week 3 – Skill Architecture & Prompt Hygiene:
+    - Lab 2.1 - AlloyDB pgvector vs Vertex AI Vector Search: week-02/lab-2.1.md
+    - Lab 2.2 - Graph-Augmented RAG: week-02/lab-2.2.md
+  - Week 3 - Skill Architecture & Prompt Hygiene:
     - Overview: week-03/index.md
     - Theory: week-03/theory.md
-    - Lab 3.1 – Modular Skills with Vertex AI Function Calling: week-03/lab-3.1.md
-    - Lab 3.2 – Dynamic Skill Router: week-03/lab-3.2.md
-  - Week 4 – Automated Evaluation & CI/CD:
+    - Lab 3.1 - Modular Skills with Vertex AI Function Calling: week-03/lab-3.1.md
+    - Lab 3.2 - Dynamic Skill Router: week-03/lab-3.2.md
+  - Week 4 - Automated Evaluation & CI/CD:
     - Overview: week-04/index.md
     - Theory: week-04/theory.md
-    - Lab 4.1 – Golden Dataset & Ragas: week-04/lab-4.1.md
-    - Lab 4.2 – Cloud Build Quality Gates: week-04/lab-4.2.md
-  - Extra Credit – DFD Fidelity & RAG Implications:
+    - Lab 4.1 - Golden Dataset & Ragas: week-04/lab-4.1.md
+    - Lab 4.2 - Cloud Build Quality Gates: week-04/lab-4.2.md
+  - Extra Credit - DFD Fidelity & RAG Implications:
     - Overview: extra-credit/index.md
     - Theory: extra-credit/theory.md
-    - Lab EC.1 – Canonical Schema & Validation: extra-credit/lab-ec.1.md
-    - Lab EC.2 – Measuring Fidelity Impact: extra-credit/lab-ec.2.md
+    - Lab EC.1 - Canonical Schema & Validation: extra-credit/lab-ec.1.md
+    - Lab EC.2 - Measuring Fidelity Impact: extra-credit/lab-ec.2.md
   - Capstone Project:
     - Overview: capstone/index.md
     - Requirements: capstone/requirements.md
@@ -117,7 +119,5 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/fischer3-net/accurate_secure_rag_systems
-  version:
-    provider: mike
 
-copyright: Copyright &copy; 2026 – Advanced RAG on GCP Workshop
+copyright: Copyright &copy; 2026 – Advanced RAG on GCP Workshop - Robert Fischer, All rights reserved.
