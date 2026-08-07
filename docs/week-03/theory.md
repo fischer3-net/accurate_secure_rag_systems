@@ -99,9 +99,9 @@ embedded inside a diagram label, a process name, or a pasted policy excerpt.
 Defenses that align with least privilege:
 
 1. **Never concatenate raw user diagram text into a system prompt** that also contains secrets or high-privilege tool descriptions.
-2. **Skills accept only structured arguments** (Pydantic models). Free-text fields are treated as data to be analysed, not as instructions to be followed.
+2. **Skills accept only structured arguments** (Pydantic models). Free-text fields are treated as data to be analyzed, not as instructions to be followed.
 3. **Output validation** – reject or quarantine any skill result that does not match the declared schema.
-4. **Allow-listed side effects** – a skill that submits a compliance report or writes to an external system is kept separate from pure analysis skills and is gated by an explicit authorisation step.
+4. **Allow-listed side effects** – a skill that submits a compliance report or writes to an external system is kept separate from pure analysis skills and is gated by an explicit authorization step.
 5. **Deterministic skills where possible** – syntax validation and graph path finding do not need an LLM; they therefore cannot be prompt-injected in the classic sense.
 
 In a security-sensitive domain these constraints are not optional polish—they are part of the threat model.
